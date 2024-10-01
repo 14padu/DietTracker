@@ -1,13 +1,13 @@
 const express = require ( "express")
 const connectDB = require ("./config/db.js")
-const DietRoutes = require ( "./routes/DietRoutes.js")
+const DietRoutes = require ( "./routes/dietRoutes.js")
 
 const app = express()
-const PORT = process.env.PORT || 7000
+const PORT = process.env.PORT || 3000
 
 connectDB()
 
-app.use(express.json)
+app.use(express.json())
 
 app.get("/", (req, res) => {
     res.send("Well-come to my HOME page of DietTracker");

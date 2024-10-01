@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const DietController =require('../controllers/DietController.js');
+const dietController =require('../controllers/dietController.js');
 
-    router.post('/Diets', DietController.createDiet);
-    router.get('/Diets', DietController.getAllDiet);
-    router.get('/Diets/:id', DietController.getDietById);
-    router.put('/Diets/:id', DietController.updateDiet);
-    router.delete('/Diets/:id', DietController.deleteDiet);
+    router.post('/diets',dietController.createDiet);
+    router.get('/diets', dietController.getAllDiet);
+    router.get('/diets/:id', dietController.getDietById);
+    router.put('/diets/:id', dietController.updateDiet);
+    router.delete('/diets/:id', dietController.deleteDiet);
 
 
     module.exports = router;
