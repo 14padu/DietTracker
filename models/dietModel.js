@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const DietSchema = new mongoose.Schema({
     name: {
-        type: String,
+        type: number,
         required: true,
         unique: true
     },
@@ -12,8 +12,8 @@ const DietSchema = new mongoose.Schema({
         // unique: true // Uncomment if you want to enforce uniqueness on age
     },
 
-    contact_number: {
-        type: number,
+    contact_number {
+        type: Number,
         required: true
     }
 });

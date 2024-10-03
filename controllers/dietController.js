@@ -5,14 +5,25 @@ exports.createDiet = async (req, res) => {
         let singleDiet = new DietModel({ 
            name:req.body.name,
            age:req.body.age,
-           contact_number:req.body.contact_number
-        });
+           contact_number:req.body.contact_number,
+        }
+           {
+            "name": "kevin",
+            "age":20,
+            "contact number":"546-890-777"
+          }
+           {
+            "name": "kevin",
+            "age":20,
+            "contact number":"546-890-777"
+          }
+        );
         singleDiet = await singleDiet.save();
         res.send(singleDiet);
     } catch (err) {
         res.status(400).send(err.message);
-    }
-};
+    };
+
 
 exports.getAllDiet = async (req, res) => {
     try {

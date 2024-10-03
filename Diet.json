@@ -1,8 +1,20 @@
 [
     {
         "name": "kevin",
-        "age":20,
-        "contact number":"546-890-777"
+        "age":"20",
+        
+        "BMI":18.5,
+        "weight":"38"
+        
+
+      }
+      {
+        "name":"joe",
+        "age":"15",
+        "contact number":"123-457-654",
+        "BMI":"25.0"
+        
+
       }
     ]
       
