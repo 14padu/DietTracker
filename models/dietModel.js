@@ -19,7 +19,7 @@ const DietSchema = new mongoose.Schema({
     
 
     }
-});
+);
 
 const Diet = mongoose.model('Diet', DietSchema);
 module.exports = Diet; // Corrected here

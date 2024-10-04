@@ -7,12 +7,7 @@ exports.createDiet = async (req, res) => {
            age:req.body.age,
            contact_number:req.body.contact_number,
         }
-           {
-            "name": "kevin",
-            "age":20,
-            "contact number":"546-890-777"
-          }
-          
+           
         );
         singleDiet = await singleDiet.save();
         res.send(singleDiet);
@@ -63,5 +58,5 @@ exports.deleteDiet= async (req, res) => {
         res.send("Diet deleted successfully");
     } catch (err) {
         res.status(400).send(err.message);
-    }
-};
+    };
+}
