@@ -12,11 +12,7 @@ exports.createDiet = async (req, res) => {
             "age":20,
             "contact number":"546-890-777"
           }
-           {
-            "name": "kevin",
-            "age":20,
-            "contact number":"546-890-777"
-          }
+          
         );
         singleDiet = await singleDiet.save();
         res.send(singleDiet);

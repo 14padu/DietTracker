@@ -7,14 +7,17 @@ const DietSchema = new mongoose.Schema({
         unique: true
     },
     age: {
-        type: Number,
+        type: number,
         required: true
         // unique: true // Uncomment if you want to enforce uniqueness on age
     },
 
-    contact_number {
-        type: Number,
+    contact_number :{
+        type: number,
         required: true
+    }
+    
+
     }
 });
 

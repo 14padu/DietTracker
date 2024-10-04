@@ -2,19 +2,35 @@
     {
         "name": "kevin",
         "age":"20",
-        
         "BMI":18.5,
-        "weight":"38"
+        "contact number":"345-08-765",
+        "weight":"38",
+        "availibility":"false",
+        "admit_Date":"2023-09-01T10:00:00P"
         
 
       }
-      {
+     {
+
         "name":"joe",
         "age":"15",
         "contact number":"123-457-654",
-        "BMI":"25.0"
+        "BMI":"25.0",
+        "availibility":"true",
+        "admit_Date":"2024-09-0357T0:00:00Y",
+        "weight":"40"
         
+    }
 
-      }
+    {
+        "name": "John Doe",
+        "age": 30,
+        "contact_number": "123-456-7890",
+        "admit_Date": "2023-09-01T10:00:00Z",
+        "weight":"33",
+        "BMI": "15.5",
+        "availability": "true"
+    }
+      
     ]
       
