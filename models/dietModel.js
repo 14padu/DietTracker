@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const DietSchema = new mongoose.Schema({
     name: {
-        type: number,
+        type: string,
         required: true,
         unique: true
     },
@@ -13,7 +13,7 @@ const DietSchema = new mongoose.Schema({
     },
 
     contact_number :{
-        type: number,
+        type: string,
         required: true
     }
     

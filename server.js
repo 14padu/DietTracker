@@ -1,20 +1,20 @@
-const express = require ( "express")
+const express = require ( "express");
 const connectDB = require ("./config/db.js")
-const DietRoutes = require ( "./routes/dietRoutes.js")
+const DietRoutes = require ( "./routes/dietRoutes.js");
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const app = express();
+const PORT = process.env.PORT || 7000;
 
-connectDB()
+connectDB();
 
-app.use(express.json())
+app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Well-come to my HOME page of DietTracker");
+    res.send("WELL_COME TO MY DIET TRACKER PROJECT");
 });
 
-app.use('/api',DietRoutes)
+app.use('/api',DietRoutes);
 
 app.listen(PORT, () => {
-    console.log(`My web process at http://localhost:${PORT}`)
-})
+    console.log(`My web process at http://localhost:${PORT}`);
+});
