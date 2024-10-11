@@ -9,7 +9,7 @@ const PatientAdd = ({ onPatientAdd = () => { } }) => {
     const [name,setName] = useState('')
     const [age,setAge] = useState('')
     const [co_number,setNumber] = useState('')
-    const [weight,setweight] = useState('')
+    const [gender,setGender] = useState('')
     const navigate = useNavigate()
     const [showNotification,setShowNotification] = useState(null)
     
@@ -18,13 +18,13 @@ const PatientAdd = ({ onPatientAdd = () => { } }) => {
         if (!name || !age || !co_number || !gender) return
 
         try {
-            const response = await axios.post(API_URL, { name, age, weight, co_number });
+            const response = await axios.post(API_URL, { name, age, gender, co_number });
             const newPatientId = response.data.id;
             
             // Clear form fields
             setName('');
             setAge('');
-            setweight('');
+            setGender('');
             setNumber('');
       
             // Show success notification
