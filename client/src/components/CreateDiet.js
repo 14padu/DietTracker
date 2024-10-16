@@ -31,7 +31,7 @@ const PatientAdd = ({ onPatientAdd = () => { } }) => {
             setShowNotification({ type: 'success', text: `Patient "${response.data.name}" added successfully!` });
       
             // Navigate to the new person's detail page
-            setTimeout(() => navigate(`/patient/${newPatientId}`), 1000); // Wait for 1 seconds before navigating
+            setTimeout(() => navigate(`/details/${newPatientId}`), 1000); // Wait for 1 seconds before navigating
           } catch (error) {
             console.error('Error adding the patient:', error);
             setShowNotification({ type: 'error', text: 'Failed to add the patient. Please try again.' });
