@@ -19,7 +19,7 @@ const DietAdd = ({ onDietAdd = () => { } }) => {
 
         try {
             const response = await axios.post(API_URL, { name, age, gender, co_number });
-            const newPatientId = response.data.id;
+            const newDietId = response.data.id;
             
             // Clear form fields
             setName('');
@@ -28,7 +28,7 @@ const DietAdd = ({ onDietAdd = () => { } }) => {
             setNumber('');
       
             // Show success notification
-            setShowNotification({ type: 'success', text: `Patient "${response.data.name}" added successfully!` });
+            setShowNotification({ type: 'success', text: `Diet "${response.data.name}" added successfully!` });
       
             // Navigate to the new Diet's detail page
             setTimeout(() => navigate(`/details/${newDietId}`), 1000); // Wait for 1 seconds before navigating
@@ -69,4 +69,4 @@ const DietAdd = ({ onDietAdd = () => { } }) => {
         );
       };
       
-      export default PatientAdd;
+      export default DietAdd;
