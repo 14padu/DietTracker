@@ -5,7 +5,7 @@ import Notification from './Notification';
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const PatientAdd = ({ onPatientAdd = () => { } }) => {
+const DietAdd = ({ onDietAdd = () => { } }) => {
     const [name,setName] = useState('')
     const [age,setAge] = useState('')
     const [co_number,setNumber] = useState('')
@@ -30,11 +30,11 @@ const PatientAdd = ({ onPatientAdd = () => { } }) => {
             // Show success notification
             setShowNotification({ type: 'success', text: `Patient "${response.data.name}" added successfully!` });
       
-            // Navigate to the new person's detail page
-            setTimeout(() => navigate(`/details/${newPatientId}`), 1000); // Wait for 1 seconds before navigating
+            // Navigate to the new Diet's detail page
+            setTimeout(() => navigate(`/details/${newDietId}`), 1000); // Wait for 1 seconds before navigating
           } catch (error) {
-            console.error('Error adding the patient:', error);
-            setShowNotification({ type: 'error', text: 'Failed to add the patient. Please try again.' });
+            console.error('Error adding the Diet:', error);
+            setShowNotification({ type: 'error', text: 'Failed to add the Diet. Please try again.' });
           }
         };
       
