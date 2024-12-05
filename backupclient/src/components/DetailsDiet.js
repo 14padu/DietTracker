@@ -6,35 +6,35 @@ import Notification from './Notification';
 const API_URL = process.env.REACT_APP_API_URL;
 console.log(API_URL)
 
-const PatientDetail = () => {
+const DietDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [patient, setPatient] = useState(null);
   const [showNotification, setShowNotification] = useState(null);
 
   useEffect(() => {
-    const fetchPatient = async () => {
+    const fetchDiet= async () => {
       try {
-        console.log('Fetching patient data...');
+        console.log('Fetching Diet data...');
         const response = await axios.get(`${API_URL}/${id}`);
-        console.log('Patient data:', response.data);
-        setPatient(response.data);
+        console.log('Diet data:', response.data);
+        setDiet(response.data);
       } catch (error) {
-        console.error('Error fetching patient:', error.response || error.message);
+        console.error('Error fetching Diet:', error.response || error.message);
         setShowNotification({ type: 'error', text: 'Error loading patient details.' });
       }
     };
-    fetchPatient();
+    fetchDiet();
   }, [id]);
 
-  const deletePatient = async () => {
+  const deleteDiet = async () => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      setShowNotification({ type: 'success', text: 'Patient deleted successfully!' });
+      setShowNotification({ type: 'success', text: 'Diet deleted successfully!' });
       setTimeout(() => navigate('/'), 1000); // Navigate after showing notification for 3 seconds
     } catch (error) {
-      console.error('Error deleting patient:', error);
-      setShowNotification({ type: 'error', text: 'Error deleting patient.' });
+      console.error('Error deleting Diet:', error);
+      setShowNotification({ type: 'error', text: 'Error deleting Diet.' });
     }
   };
 
@@ -42,25 +42,25 @@ const PatientDetail = () => {
     setShowNotification(null);
   };
 
-  if (!patient && !showNotification) {
+  if (!Diet && !showNotification) {
     return <div className="box-container">Loading...</div>;
   }
 
-  if (!patient && showNotification) {
-    return <div className="box-container">Error loading patient details.</div>;
+  if (!Diet && showNotification) {
+    return <div className="box-container">Error loading Diet details.</div>;
   }
 
   return (
     <div className="box-container"><h2>Name: {patient.name}</h2>
-      <div className="patient-info"><p>Age: {patient.age}</p>
+      <div className="Diet-info"><p>Age: {Diet.age}</p>
 
-      <div className="patient-info"><p>Contact info: {patient.co_number}</p></div>
+      <div className="Diet-info"><p>Contact info: {Diet.co_number}</p></div>
 
-      <div className="patient-info"><p>Gender: {patient.gender}</p></div> </div>
-      <div className="patient-actions">
+      <div className="Diet-info"><p>Gender: {Diet.gender}</p></div> </div>
+      <div className="Diet-actions">
         <Link to={`/edit/${patient.id}`} className="btn btn-update">Edit</Link>
 
-        <button onClick={deletePatient} className="btn btn-delete">Delete</button>
+        <button onClick={deleteDiet} className="btn btn-delete">Delete</button>
 
         <Link to="/" className="btn btn-back">Back to Home</Link>
       </div>
