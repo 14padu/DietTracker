@@ -13,4 +13,4 @@ const DeletePerson = ({ id, onDelete }) => {
     )
 }
 
-export default DeletePerson;
+export default DeleteDiet;
