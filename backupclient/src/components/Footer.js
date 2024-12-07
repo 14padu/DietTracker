@@ -1,11 +1,25 @@
-import React from "react";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 
 const Footer = () => (
-  <footer className="page-footer font-small bg-info text-dark h-auto fixed-bottom" > {/* Add fixed-bottom class */}
-    <div className="container text-center">
-      <div className="py-1">Built with ❤ by padmaja | © 2024 Copyright</div>
-    </div>
-  </footer>
+  <Box 
+    component="footer" 
+    sx={{
+      bgcolor: 'background.paper',
+      color: 'text.secondary',
+      py: 4,
+      width: '100%',
+      textAlign: 'center',
+      borderTop: `1px solid ${theme => theme.palette.primary.main}`, // Optional: add a top border
+    }}
+  >
+    <Typography variant="h6" gutterBottom>
+      Built with ❤️ by padmaja
+    </Typography>
+    <Typography variant="body2" sx={{ mt: 2 }}>
+      © {new Date().getFullYear()} Bsc Cohort | All Rights Reserved
+    </Typography>
+  </Box>
 );
 
 export default Footer;

@@ -2,19 +2,21 @@ const mongoose = require('mongoose');
 
 const DietSchema = new mongoose.Schema({
     name: {
-        type: String,
+        type: Number,
         required: true,
         unique: true
     },
     age: {
-        type: number,
-        required: true
+        type: Number,
+        required: true,
+        unique:true
         
     },
 
     contact_number :{
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        unique:true
     }
     
 
