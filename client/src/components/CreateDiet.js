@@ -19,7 +19,7 @@ const DietAdd = ({ onDietAdd = () => { } }) => {
 
         try {
             const response = await axios.post(API_URL, { name, age, gender, co_number });
-            // const newDietId = response.data.id;
+            const newDietId = response.data.id;
             
             // Clear form fields
             setName('');
