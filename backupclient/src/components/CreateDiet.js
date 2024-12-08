@@ -1,190 +1,73 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Notification from './Notification';
 
-const CreateDiet = (props) => {
-  const navigate = useNavigate();
-  const [Diet, setDiet] = useState({
-    name: '',
-    date: '',
-    distancecovered: '',
-    weight: '',
-  });
-  const [showToast, setShowToast] = useState(false);
+const API_URL = process.env.REACT_APP_API_URL
 
-  const onChange = (e) => {
-    set({ ...Diet.Diet, [e.target.name]: e.target.value });
-  };
+const DietAdd = ({ onDietAdd = () => { } }) => {
+    const [name,setName] = useState('')
+    const [age,setAge] = useState('')
+    const [co_number,setNumber] = useState('')
+    const [gender,setGender] = useState('')
+    const navigate = useNavigate()
+    const [showNotification,setShowNotification] = useState(null)
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (!name || !age || !co_number || !gender) return
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+        try {
+            const response = await axios.post(API_URL, { name, age, gender, co_number });
+            const newDietId = response.data.id;
+            
+            // Clear form fields
+            setName('');
+            setAge('');
+            setGender('');
+            setNumber('');
+      
+            // Show success notification
+            setShowNotification({ type: 'success', text: `Diet "${response.data.name}" added successfully!` });
+      
+            // Navigate to the new person's detail page
+            setTimeout(() => navigate(`/detail/${newDietId}`), 1000); // Wait for 1 seconds before navigating
+          } catch (error) {
+            console.error('Error adding the Diet:', error);
+            setShowNotification({ type: 'error', text: 'Failed to add the Diet. Please try again.' });
+          }
+        };
+      
+        const handleCloseNotification = () => {
+          setShowNotification(null);
+        };
+      
+      
+        return (
+          <div className="box-container">
+            <h2>Add Diet</h2>
+            <form onSubmit={handleSubmit} className="form-container">
 
-    axios
-      .post('/api/Diet', Diet)
-      .then((res) => {
-        setTrack({
-          name: '',
-          date: '',
-          distancecovered: '',
-          weight: '',
-        });
+              <input type="text" placeholder="Name"  value={name} onChange={(e) => setName(e.target.value)} required className="input-field"/>
 
-        // Show the success alert
-        toast.success('Track added successfully!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
+              <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required className="input-field" />
 
-        // Delay the navigation slightly to allow the toast to be seen
-        setTimeout(() => {
-          setShowToast(false); // Hide the toast
-          navigate('/'); // Navigate to homepage
-        }, 5000); // Adjust the timeout as needed
+              <input type="number" placeholder="contact-number" value={co_number} onChange={(e) => setNumber(e.target.value)} required className="input-field" />
 
-      })
-      .catch((err) => {
-        console.log('Error in CreateDiet!');
-        console.log('The error is -> ')
-        console.log(err)
-        // Show the success alert
-        toast.error('Something went wrong, try again!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
-      });
-  };
+              <select value={gender} onChange={(e) => setGender(e.target.value)} required className='input-field'>
+            <option value="" disabled>Select Gender</option> {/* Prompt option */}
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option> </select>
 
-  return (
-    <div className='CreateDiet'>
-      {/* <Navbar /> */}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Slide}
-      />
-
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Track List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Diet</h1>
-            <p className='lead text-center'>Create new Diet</p>
-
-            <form noValidate onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Name'
-                  name='name'
-                  className='form-control'
-                  value={Diet.name}
-                  onChange={onChange}
-                />
+              <div className="button-group">
+                <button type="submit" className="btn btn-add">Add PDiet</button>
+                <button type="button" className="btn btn-cancel" onClick={() => navigate('/')}>Cancel</button>
               </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='date'
-                  placeholder='Date'
-                  name='name'
-                  className='form-control'
-                  value={track.Date}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='number'
-                  placeholder='Steps'
-                  name='steps'
-                  className='form-control'
-                  value={Diet.steps}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='number'
-                  
-                  className='form-control'
-                  value={track.caloriesburned}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='distancecovered'
-                  placeholder='distancecovered'
-                  name='distancecovered'
-                  className='form-control'
-                  value={Diet.distancecovered}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='number'
-                  placeholder='weight'
-                  name='weight'
-                  className='form-control'
-                  value={track.weight}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <input
-                type='submit'
-                className='btn btn-outline-warning btn-block mt-4'
-              />
             </form>
+            {showNotification && <Notification message={showNotification} onClose={handleCloseNotification} />}
           </div>
-        </div>
-      </div>
-
-
-    </div>
-  );
-};
-
-export default CreateDiet;
+        );
+      };
+      
+      export default DietAdd;
