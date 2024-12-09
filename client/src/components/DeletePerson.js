@@ -1,8 +1,8 @@
 import React from 'react'
 
-const DeleteDiet = ({ id, onDelete }) => {
+const DeletePerson = ({ id, onDelete }) => {
     const handleDelete = () => {
-        if (window.confirm('Sure you want to delete this Diet?')){
+        if (window.confirm('Sure you want to delete this Person?')){
             onDelete(id)
         }
     }

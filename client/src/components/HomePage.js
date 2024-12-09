@@ -14,7 +14,7 @@ const HomePage = () => {
       <Box mt={4}>
       <Button 
           component={Link} 
-          to="/Diet-list" 
+          to="/Person-list" 
           color="primary" 
           variant="contained"
         >
