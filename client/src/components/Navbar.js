@@ -71,7 +71,7 @@ const notesPages = [
           <IconButton
             color="primary"
             component="a"
-            href="https://github.com/14padu/DietTracker.git"
+            href="https://github.com/25sonu/DietTracker.git"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

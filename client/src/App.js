@@ -1,33 +1,43 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Footer from './components/Footer';
+//import { ThemeProvider } from '@mui/material/styles';
+import {  Box } from '@mui/material';
+//import rosePineTheme from './theme/rosepine';
+
 import Navbar from './components/Navbar';
-import Create from './components/CreateDiet';
-import ShowDietList from './components/DietList';
-import ShowDietdetails from './components/DetailsDiet';
-import UpdateDietinfo from './components/UpdateDiet';
-import Home from './components/HomePage';
-// import AllRoutes from './components/Route';
+import Footer from './components/Footer';
+ import CreatePerson from './components/CreatePerson';
+ import ShowPersonList from './components/ShowPersonList';
+// import ShowPersonDetails from './components/ShowPersonDetails';
+// import UpdatePersonInfo from './components/UpdatePersonInfo';
+ import HomePage from './components/HomePage';
 
+// import NotesPage from './components/NotesPage'; // Import NotesPage component
 
-
-function App() {
+const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <div>
-        <Routes>
-        <Route exact path='/' element={<Home/>}/>
-        <Route path='/Diet-list' element={<ShowDietList/>}/>
-        <Route path='/add' element={<Create/>}/>
-        <Route path='/edit-Diet-info/:id' element={<UpdateDietinfo/>}/>
-        <Route path='/show-Diet/:id' element={<ShowDietdetails/>} />        
-        </Routes>
-      </div>
-      <Footer />
+     //<ThemeProvider theme={rosePineTheme}>
+       //<CssBaseline />
+      <Router>
+        <Box display="flex" flexDirection="column" minHeight="100vh">
+          <Navbar />
+          <Box component="main" flexGrow={1} py={3}>
+            <Routes>
+              <Route exact path='/' element={<HomePage />} />
+              
+              <Route path='/person-list' element={<CreatePerson />} />
+              <Route path='/person-list' element={<ShowPersonList />} />
+              {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
+              <Route path='/show-person/:id' element={<ShowPersonDetails />} />
+              <Route path='/notes/*' element={<NotesPage />} />  */}
+            </Routes>
+          </Box>
+          <Footer />
+        </Box>
       </Router>
+       //</ThemeProvider>
   );
-}
+};
 
 export default App;

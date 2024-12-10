@@ -1,76 +1,197 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
- import Notification from './Notification';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const API_URL = process.env.REACT_APP_API_URL
 
-const PersonAdd = ({ onDietAdd = () => { } }) => {
-    const [name,setName] = useState('')
-    const [age,setAge] = useState('')
+
+import axios from 'axios';
+
+const CreatePerson = (props) => {
+    const navigate = useNavigate();
+    const [person, setPerson] = useState({
+        name: '',
+        age:'',
+        contact_number:'', 
+        admit_Date: '',
+        weight:'',
+        BMI:'',
+        availability:'',
+      
+    });
+    const [showToast, setShowToast] = useState(false);
+
+    const onChange = (e) => {
+        setPerson({ ...person, [e.target.name]: e.target.value });
+      };
     
-    const [co_number,setNumber] = useState('')
-    const [gender,setGender] = useState('')
-    const [navigate,useNavigate]=useState('')
-      const [showNotification,setShowNotification] = useState(null)
+      const onSubmit = (e) => {
+        e.preventDefault();
+        
+    axios
+    .post('/api/persons', person)
+    .then((res) => {
+      setPerson({
+        name: '',
+        age:'',
+        contact_number:'', 
+        admit_Date: '',
+        weight:'',
+        BMI:'',
+        availability:'',
     
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        if (!name || !age || !co_number || !gender) return
+        
+      });
 
-        try {
-            const response = await axios.post(API_URL, { name, age, gender, co_number,BMI});
-            const newDietId = response.data.id;
-            
-            // Clear form fields
-            setName('');
-            setAge('');
-            setGender('');
-            setNumber('');
-            
       
-             Show success notification
-           setShowNotification({ type: 'success', text: `Diet "${response.data.name}" added successfully!` });
-      
-            // Navigate to the new person's detail page
-            setTimeout(() => navigate(`/`), 1000); // Wait for 1 seconds before navigating
-          } catch (error) {
-            console.error('Error adding the Diet:', error);
-           // setShowNotification({ type: 'error', text: 'Failed to add the Diet. Please try again.' });
-          }
-        };
-      
-       const handleCloseNotification = () => 
-          setShowNotification(null);
-         };
-      
-      
-        return (
-          <div className="box-container">
-            <h2>Add Person</h2>
-            <form onSubmit={handleSubmit} className="form-container">
+        // Show the success alert
+        toast.success('Person added successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+          });
 
-              <input type="text" placeholder="Name"  value={setName} onChange={(e) => setName(e.target.value)} required className="input-field"/>
+          setTimeout(() => {
+            setShowToast(false); // Hide the toast
+            navigate('/'); // Navigate to homepage
+          }, 5000); // Adjust the timeout as needed
+  
+        })
 
-              <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required className="input-field" />
+        .catch((err) => {
+            console.log('Error in CreatePerson!');
+            console.log('The error is -> ')
+            console.log(err)
+            // Show the success alert
+            toast.error('Something went wrong, try again!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Slide,
+            });
+          });
+      };
 
-              <input type="number" placeholder="contact-number" value={co_number} onChange={(e) => setNumber(e.target.value)} required className="input-field" />
-              
-
-              <select value={gender} onChange={(e) => setGender(e.target.value)} required className='input-field'>
-            <option value="" disabled>Select Gender</option> {/* Prompt option */}
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option> </select>
-
-              <div className="button-group">
-                <button type="submit" className="btn btn-add">Add Diet</button>
-                <button type="button" className="btn btn-cancel" onClick={() => navigate('/')}>Cancel</button>
+      return (
+        <div className='CreatePerson'>
+          {/* <Navbar /> */}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Slide}
+          />
+    
+          <div className='container'>
+            <div className='row'>
+              <div className='col-md-8 m-auto'>
+                <br />
+                <Link to='/' className='btn btn-outline-warning float-left'>
+                  Show Person List
+                </Link>
               </div>
-            </form>
-           {/* {showNotification && <Notification message={showNotification} onClose={handleCloseNotification} />} */}
+              <div className='col-md-8 m-auto'>
+                <h1 className='display-4 text-center'>Add Person</h1>
+                <p className='lead text-center'>Create new person</p>
+    
+                <form noValidate onSubmit={onSubmit}>
+                  <div className='form-group'>
+                    <input
+                      type='text'
+                      placeholder='Name of the Person'
+                      name='name'
+                      className='form-control'
+                      value={person.name}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+    
+                  <div className='form-group'>
+                    <input
+                      type='text'
+                      placeholder='age of the person'
+                      name='age'
+                      className='form-control'
+                      value={person.age}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+    
+                  <div className='form-group'>
+                    <input
+                      type='text'
+                      placeholder='weight'
+                      name='weight'
+                      className='form-control'
+                      value={person.weight}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+    
+                  <div className='form-group'>
+                    <input
+                      type='text'
+                      placeholder='BMI'
+                      name='BMI'
+                      className='form-control'
+                      value={person.BMI}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+    
+                  <div className='form-group'>
+                    <input
+                      type='text'
+                      placeholder='contact_number'
+                      name='contact_number'
+                      className='form-control'
+                      value={person.contact_number}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+    
+                 
+    
+                  <input
+                    type='submit'
+                    className='btn btn-outline-warning btn-block mt-4'
+                  />
+                </form>
+              </div>
+            </div>
           </div>
-        );
-      ;
-      
-      export default PersonAdd ;
+    
+    
+        </div>
+      );
+    };
+    
+    export default CreatePerson;
+    
+
+    
+  

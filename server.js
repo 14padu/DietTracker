@@ -1,20 +1,28 @@
-const express = require ( "express");
-const connectDB = require ("./config/db.js")
-const DietRoutes = require ( "./routes/dietRoutes.js");
+const express = require("express")
+const connectDB = require("./config/db")
+const cors = require("cors")
+const diets= require("./routes/diets")
+const path = require('path');
+require("dotenv").config( { path: "./config.env" } )
 
-const app = express();
-const PORT = process.env.PORT || 7000;
+// CONNECT TO DB
+connectDB()
 
-connectDB();
+// INITIATE APP
+const app = express()
 
+
+
+// HANDLE MIDDLEWARE
 app.use(express.json());
+app.use(cors());
+app.use("/api/persons", persons)
 
-app.get("/", (req, res) => {
-    res.send("WELL_COME TO MY DIET TRACKER PROJECT");
-});
 
-app.use('/api',DietRoutes);
+// SERVE STATIC FILES
 
-app.listen(PORT, () => {
-    console.log(`My web process at http://localhost:${PORT}`);
-});
+
+
+// START SERVER
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Express server running on port ${port}`));
