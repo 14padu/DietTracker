@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //import { ThemeProvider } from '@mui/material/styles';
 import {  Box } from '@mui/material';
-import dietTrackerTheme from './theme/dietTracker';
+//import dietTrackerTheme from './theme/dietTracker';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -26,7 +26,7 @@ const App = () => {
             <Routes>
               <Route exact path='/' element={<HomePage />} />
               
-              <Route path='/person-list' element={<CreatePerson />} />
+              <Route path='/person-add' element={<CreatePerson />} />
               <Route path='/person-list' element={<ShowPersonList />} />
               {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />

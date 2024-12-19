@@ -20,7 +20,7 @@ const CreatePerson = (props) => {
         availability:'',
       
     });
-    const [showToast, setShowToast] = useState(false);
+    //const [showToast, setShowToast] = useState(false);
 
     const onChange = (e) => {
         setPerson({ ...person, [e.target.name]: e.target.value });
@@ -59,7 +59,7 @@ const CreatePerson = (props) => {
           });
 
           setTimeout(() => {
-            setShowToast(false); // Hide the toast
+          //  setShowToast(false); // Hide the toast
             navigate('/'); // Navigate to homepage
           }, 5000); // Adjust the timeout as needed
   
@@ -103,12 +103,7 @@ const CreatePerson = (props) => {
     
           <div className='container'>
             <div className='row'>
-              <div className='col-md-8 m-auto'>
-                <br />
-                <Link to='/' className='btn btn-outline-warning float-left'>
-                  Show Person List
-                </Link>
-              </div>
+             
               <div className='col-md-8 m-auto'>
                 <h1 className='display-4 text-center'>Add Person</h1>
                 <p className='lead text-center'>Create new person</p>
