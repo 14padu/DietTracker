@@ -5,7 +5,7 @@ const diets = require("./routes/dietRoutes");
 const path = require('path')
 require("dotenv").config( { path: "./config.env" } )
  const dietRoutes = require('./routes/dietRoutes');
-
+ app.use(cors());
 
 
 
@@ -15,7 +15,7 @@ connectDB();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
 app.use("/diets", diets)
 
 
