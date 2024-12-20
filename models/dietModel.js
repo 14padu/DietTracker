@@ -17,6 +17,18 @@ const DietSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique:true
+    },
+
+    BMI :{
+        type:Number,
+        required:true,
+        unique:true
+    },
+
+    weight:{
+        type:Number,
+        required:true,
+        unique:true
     }
     
 

@@ -9,7 +9,8 @@ const connectDB = async () => {
         const DB = process.env.DATABASE;
         console.log('Connecting to:', DB); // Log the URI for debugging
 
-        const conn = await mongoose.connect(DB);
+        const conn = await mongoose.connect('mongodb+srv:diet_tracker_admin:diet_tracker_admin@diet-tracker.jsni9.mongodb.net/?retryWrites=true&w=majority&appName=diet-tracker'
+            );
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
         console.error(`Error: ${error.message}`);

@@ -5,7 +5,7 @@ const diets = require("./routes/dietRoutes");
 const path = require('path')
 require("dotenv").config( { path: "./config.env" } )
  const dietRoutes = require('./routes/dietRoutes');
- app.use(cors());
+ 
 
 
 
@@ -15,10 +15,21 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
-app.use("/diets", diets)
+app.use("/api", diets);
 
+app.use(express.static(path.join(__dirname, "./dirts/build")));
+app.get("*", function (_, res) {
+    res.sendFile(
+        path.join(__dirname, "./diets/build/index.html"),
+        function (err) {
+            res.status(500).send(err);
+        }
+    );
+});
 
-    const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
+});
  
