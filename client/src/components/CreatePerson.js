@@ -47,7 +47,7 @@ const CreatePerson = (props) => {
       
         // Show the success alert
         toast.success('Person added successfully!', {
-            position: "top-right",
+            position: "center",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -71,7 +71,7 @@ const CreatePerson = (props) => {
             console.log(err)
             // Show the success alert
             toast.error('Something went wrong, try again!', {
-              position: "top-right",
+              position: "center",
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -88,7 +88,7 @@ const CreatePerson = (props) => {
         <div className='CreatePerson'>
           {/* <Navbar /> */}
           <ToastContainer
-            position="top-right"
+            position="center"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
@@ -168,9 +168,20 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
+
+                  <br />
     
-                 
-    
+            <div className='form-group'>
+             <input
+             type='text'
+             placeholder='availibility'
+             name='availibility'
+              className='form-control'
+              value={person.availibility}
+             onChange={onChange}
+      />
+    </div>
+    <br />
                   <input
                     type='submit'
                     className='btn btn-outline-warning btn-block mt-4'

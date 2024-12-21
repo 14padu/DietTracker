@@ -94,6 +94,7 @@ const ShowPersonDetails = () => {
               <Typography variant="body1">ISBN: {person.BMI}</Typography>
               <Typography variant="body1">Published: {person.weight}</Typography>
               <Typography variant="body1">Publisher: {person.contact_number}</Typography>
+              <Typography variant="body1">availibility: {person.availibility}</Typography>
             </Box>
 
           </Grid>

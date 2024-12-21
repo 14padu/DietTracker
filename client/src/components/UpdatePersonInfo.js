@@ -25,6 +25,7 @@ function UpdatePersonInfo(props) {
           weight: res.data.weight,
           BMI: res.data.BMI,
           contact_number: res.data.contact_number,
+          availibility:res.data.availibility
         
         });
       })
@@ -47,6 +48,7 @@ function UpdatePersonInfo(props) {
       weight: person.weight,
       BMI: person.BMI,
       contact_number: person.contact_number,
+      availibility:person.availibility
       
     };
 
@@ -144,6 +146,21 @@ function UpdatePersonInfo(props) {
               />
             </div>
             <br />
+
+            <br />
+
+<div className='form-group'>
+  <label htmlFor='BMI'>avilibility</label>
+  <input
+    type='text'
+    placeholder='availibility of the Person'
+    name='availibility'
+    className='form-control'
+    value={person.availibility}
+    onChange={onChange}
+  />
+</div>
+<br />
 
             <button
               type='submit'
