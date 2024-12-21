@@ -31,7 +31,7 @@ const CreatePerson = (props) => {
         e.preventDefault();
         
     axios
-    .post('https://5000-25sonu-diettracker-e8t5a8vigez.ws-us117.gitpod.io/api/diets', person)
+    .post('https://3000-14padu-diettracker-tcaq8wugkjl.ws-us117.gitpod.io/diets', person)
     .then((res) => {
       setPerson({
         name: '',
@@ -159,7 +159,7 @@ const CreatePerson = (props) => {
                       placeholder='BMI'
                       name='BMI'
                       className='form-control'
-                      value={person.bmi}
+                      value={person.BMI}
                       onChange={onChange}
                     />
                   </div>

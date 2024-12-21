@@ -3,7 +3,7 @@ const DietModel = require('../models/dietModel');
 // Create a new diet
 exports.creatediet = async (req, res) => {
     try {
-        let singleDiet= new DietModel({
+        let newdiet= new DietModel({
             name:req.body.name,
             age:req.body.age,
             weight:req.body.weight,
