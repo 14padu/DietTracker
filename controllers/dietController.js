@@ -1,64 +1,77 @@
-const DietModel = require('../models/dietModel');
+const DietModel = require('../models/dietModel');  
 
-exports.createDiet = async (req, res) => {
+// Create a new diet
+exports.creatediet = async (req, res) => {
     try {
-        let singleDiet = new DietModel({ 
-           name:req.body.name,
-           age:req.body.age,
-           contact_number:req.body.contact_number,
+        let singleDiet= new DietModel({
+            name:req.body.name,
+            age:req.body.age,
+            weight:req.body.weight,
+            availibility:req.body.availability,
+            BMI:req.body.BMI,
+            contact_number:req.body.contact_number,
+    
+            
+    
         });
-           
-        
-        singleDiet = await singleDiet.save();
-        res.send(singleDiet);
+        newdiet = await newdiet.save(); 
+        res.send(newdiet); 
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(err.message); // Send an error response if something goes wrong
     }
-    };
+};
 
 
-exports.getAllDiet = async (req, res) => {
+// Get all tracks
+exports.getAllDiets = async (req, res) => {
     try {
-        const allDiet = await DietModel.find();
-        res.send(allDiet);
+        const allDiets = await DietModel.find();
+        res.send(all);
     } catch (err) {
         res.status(400).send(err.message);
     }
 };
+
+
 
 exports.getDietById = async (req, res) => {
     try {
-        const DietById = await DietModel.findById(req.params.id);
-        if (!DietById) return res.status(404).send('Diet not found in database');
-        res.send(DietById);
+        const dietById = await DietModel.findById(req.params.id); // Find track by ID
+        if (!dietById) return res.status(404).send('Diet not found in database'); // If track is not found, return 404
+        res.send(dietById); // Send the track as a response
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(err.message); // Send an error response if something goes wrong
     }
 };
+
 
 exports.updateDiet = async (req, res) => {
     try {
-        const updatedDiet = await DietModel.findByIdAndUpdate(req.params.id, { 
+        const updatedDiet = await DietModel.findByIdAndUpdate(req.params.id, {
             name:req.body.name,
-            age:req.body.age,
-            contact_number:req.body.contact_number
-        }, { new: true });
+            BMI:req.body.BMI,
+            contact_number:req.body.contact_number,
+            availibility:req.body.availibility,
+            weight:req.body.weight,
+            age:req.body.age
+        }, { new: true }); // Return the updated Track
 
-        if (!updatedDiet) return res.status(404).send('Diet not found in database');
-        res.send(updatedDiet);
-        
+        if (!updatedDiet) return res.status(404).send('Diet not found in database'); // If track is not found, return 404
+        res.send(updatedDiet); // Send the updated  track as a response
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(err.message); // Send an error response if something goes wrong
+    }
+};
+    
+
+// Delete a room by ID
+exports.deleteDiet = async (req, res) => {
+    try {
+        const dietById = await DietModel.findByIdAndDelete(req.params.id); // Find track by ID and delete it
+        if (!dietById) return res.status(404).send('Diet not found in database'); // If track is not found, return 404
+        res.send("Diet deleted successfully"); // Send success message
+    } catch (err) {
+        res.status(400).send(err.message); // Send an error response if something goes wrong
     }
 };
 
-exports.deleteDiet= async (req, res) => {
-    try {
-        const DietById = await DietModel.findByIdAndDelete(req.params.id);
-        if (!DietById) return res.status(404).send('Diet not found in database');
-        
-        res.send("Diet deleted successfully");
-    } catch (err) {
-        res.status(400).send(err.message);
-    };
-}

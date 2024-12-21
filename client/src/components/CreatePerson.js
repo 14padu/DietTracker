@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container} from '@mui/material';
 
 
 
@@ -20,7 +21,7 @@ const CreatePerson = (props) => {
         availability:'',
       
     });
-    //const [showToast, setShowToast] = useState(false);
+    const [showToast, setShowToast] = useState(false);
 
     const onChange = (e) => {
         setPerson({ ...person, [e.target.name]: e.target.value });
@@ -30,16 +31,16 @@ const CreatePerson = (props) => {
         e.preventDefault();
         
     axios
-    .post('https://5000-14padu-diettracker-ug5trejflow.ws-us117.gitpod.io/api/diets', person)
+    .post('https://5000-25sonu-diettracker-e8t5a8vigez.ws-us117.gitpod.io/api/diets', person)
     .then((res) => {
       setPerson({
         name: '',
         age:'',
         contact_number:'', 
-        admit_Date: '',
+        // admit_Date: '',
         weight:'',
         BMI:'',
-        availability:'',
+        // availability:'',
     
         
       });
@@ -47,7 +48,7 @@ const CreatePerson = (props) => {
       
         // Show the success alert
         toast.success('Person added successfully!', {
-            position: "center",
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -59,19 +60,19 @@ const CreatePerson = (props) => {
           });
 
           setTimeout(() => {
-          //  setShowToast(false); // Hide the toast
+            setShowToast(false); // Hide the toast
             navigate('/'); // Navigate to homepage
           }, 5000); // Adjust the timeout as needed
   
         })
 
         .catch((err) => {
-            console.log('Error in CreatePerson!');
-            console.log('The error is -> ')
-            console.log(err)
+            console.log('Error in CreatePerson!',err);
+          
+           
             // Show the success alert
             toast.error('Something went wrong, try again!', {
-              position: "center",
+              position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
@@ -85,10 +86,11 @@ const CreatePerson = (props) => {
       };
 
       return (
+        <Container maxWidth="lg" sx={{ textAlign: 'center', py: 5 }}>
         <div className='CreatePerson'>
           {/* <Navbar /> */}
           <ToastContainer
-            position="center"
+            position="top-right"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
@@ -103,12 +105,18 @@ const CreatePerson = (props) => {
     
           <div className='container'>
             <div className='row'>
-             
+              <div className='col-md-8 m-auto'>
+                <br />
+                <Link to='/' className='btn btn-outline-warning float-left'>
+                  
+                </Link>
+              </div>
               <div className='col-md-8 m-auto'>
                 <h1 className='display-4 text-center'>Add Person</h1>
                 <p className='lead text-center'>Create new person</p>
     
                 <form noValidate onSubmit={onSubmit}>
+                  {/* <Name /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -120,7 +128,7 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-    
+                  {/* <Age /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -132,7 +140,7 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-    
+                  {/* <Weight /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -144,19 +152,19 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-    
+                  {/* <BMI /> */}
                   <div className='form-group'>
                     <input
                       type='text'
                       placeholder='BMI'
                       name='BMI'
                       className='form-control'
-                      value={person.BMI}
+                      value={person.bmi}
                       onChange={onChange}
                     />
                   </div>
                   <br />
-    
+                  {/* <Contact Number /> */}
                   <div className='form-group'>
                     <input
                       type='text'
@@ -168,20 +176,22 @@ const CreatePerson = (props) => {
                     />
                   </div>
                   <br />
-
+                  <br />
+                  {/* <Contact Number /> */}
+                  <div className='form-group'>
+                    <input
+                      type='text'
+                      placeholder='availibility'
+                      name='availibility'
+                      className='form-control'
+                      value={person.availibility}
+                      onChange={onChange}
+                    />
+                  </div>
                   <br />
     
-            <div className='form-group'>
-             <input
-             type='text'
-             placeholder='availibility'
-             name='availibility'
-              className='form-control'
-              value={person.availibility}
-             onChange={onChange}
-      />
-    </div>
-    <br />
+                 
+    
                   <input
                     type='submit'
                     className='btn btn-outline-warning btn-block mt-4'
@@ -193,6 +203,7 @@ const CreatePerson = (props) => {
     
     
         </div>
+        </Container>
       );
     };
     

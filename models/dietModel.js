@@ -29,11 +29,19 @@ const DietSchema = new mongoose.Schema({
         type:Number,
         required:true,
         unique:true
+    },
+
+    availibility:{
+        type:Number,
+        required:true,
+        unique:true
     }
+
+
     
 
     }
 );
 
-const Diet = mongoose.model('Diet', DietSchema);
-module.exports = Diet; // Corrected here
+const DietModel =mongoose.model('DietData', DietSchema );
+module.exports =DietModel;
