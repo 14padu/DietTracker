@@ -2,46 +2,33 @@ const mongoose = require('mongoose');
 
 const DietSchema = new mongoose.Schema({
     name: {
-        type: Number,
-        required: true,
-        unique: true
+        type: String, // Corrected from Number to String
+        required: true
     },
     age: {
         type: Number,
-        required: true,
-        unique:true
-        
+        required: true
     },
-
-    contact_number :{
+    contact_number: {
+        type: String, // Phone numbers are better stored as strings to handle leading zeros and large values
+        required: true,
+        unique: true
+    },
+    BMI: {
         type: Number,
-        required: true,
-        unique:true
+        required: true
     },
-
-    BMI :{
-        type:Number,
-        required:true,
-        unique:true
+    weight: {
+        type: Number,
+        required: true
     },
-
-    weight:{
-        type:Number,
-        required:true,
-        unique:true
-    },
-
-    availibility:{
-        type:Number,
-        required:true,
-        unique:true
+    availibility: {
+        type: Boolean, // Changed to Boolean as it represents availability
+        required: true
     }
+}, {
+    timestamps: true // Adds createdAt and updatedAt fields
+});
 
-
-    
-
-    }
-);
-
-const DietModel =mongoose.model('DietData', DietSchema );
-module.exports =DietModel;
+const DietModel = mongoose.model('DietData', DietSchema);
+module.exports = DietModel;

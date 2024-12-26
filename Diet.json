@@ -1,33 +1,26 @@
 [
     {
-        "name": "kevin",
-        "age":"20",
-        "BMI":"18.5",
-        "contact number":"345-08-765",
-        "weight":"38",
-        "availibility":"false"
-        
-
-      },
-     {
-
-        "name":"joe",
-        "age":"15",
-        "contact number":"123-457-654",
-        "BMI":"25.0",
-        "availibility":"true",
-        "weight":"40"
-        
-     },
-
-        {
         "name": "John Doe",
-        "age": "30",
-        "contact_number": "123-456-7890",
-        "weight":"33",
-        "BMI": "15.5",
-        "availability": "true"
+        "age": 30,
+        "contact_number": "1234567890",
+        "BMI": 25.5,
+        "weight": 75,
+        "availibility": true
+    },
+    {
+        "name": "Jane Smith",
+        "age": 25,
+        "contact_number": "9876543210",
+        "BMI": 22.3,
+        "weight": 60,
+        "availibility": false
+    },
+    {
+        "name": "Alice Johnson",
+        "age": 28,
+        "contact_number": "5551234567",
+        "BMI": 27.8,
+        "weight": 68,
+        "availibility": true
     }
-      
-    ]
-      
+]
