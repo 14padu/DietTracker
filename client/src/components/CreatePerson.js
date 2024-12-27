@@ -19,7 +19,9 @@ const CreatePerson = () => {
     age: '',
     contact_number: '',
     BMI: '',
-    weight: ''
+    weight: '',
+    availibility: '',
+    admit_date: ''
   });
 
   const onChange = (e) => {
@@ -37,7 +39,10 @@ const CreatePerson = () => {
           age: '',
           contact_number: '',
           BMI: '',
-          weight: ''
+          weight: '',
+          availibility: '',
+          admit_date: '',
+
         });
 
         toast.success('Person added successfully!', {
@@ -163,7 +168,34 @@ const CreatePerson = () => {
               style: { color: 'black' }}}
           />
 
-          {/* Buttons */}
+          {/* admit_date */}
+            <TextField
+            label="admit_date "
+            name="admit_date"
+            type="number"
+            variant="outlined"
+            fullWidth
+            required
+            value={person.admit_date}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
+          />
+
+           {/* availibility */}
+           <TextField
+            label="availibility "
+            name="availibility"
+            type="number"
+            variant="outlined"
+            fullWidth
+            required
+            value={person.availibility}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
+          />
+          {/* Button */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Add Person

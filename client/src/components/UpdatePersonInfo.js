@@ -20,6 +20,8 @@ const UpdatePersonInfo = () => {
     weight: '',
     BMI: '',
     contact_number: '',
+    availibility: '',
+    admit_date: ''
   });
 
   const { id } = useParams();
@@ -35,6 +37,8 @@ const UpdatePersonInfo = () => {
           weight: res.data.weight,
           BMI: res.data.BMI,
           contact_number: res.data.contact_number,
+          admit_date: res.data.admit_date,
+          avalibility: res.data.availibility
         });
       })
       .catch((err) => {
@@ -111,6 +115,24 @@ const UpdatePersonInfo = () => {
               label="Contact Number"
               name="contact_number"
               value={person.contact_number}
+              onChange={onChange}
+              fullWidth
+              required
+              type="tel"
+            />
+            <TextField
+              label="admit_date"
+              name="admit_date"
+              value={person.admit_date}
+              onChange={onChange}
+              fullWidth
+              required
+              type="tel"
+            />
+            <TextField
+              label="availibility"
+              name="availibility"
+              value={person.availibility}
               onChange={onChange}
               fullWidth
               required

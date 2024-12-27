@@ -51,6 +51,8 @@ const ExportPage = () => {
       person.BMI,
       person.contact_number || 'N/A', // Handle missing contact number gracefully
       person.weight || 'N/A', // Handle missing weight gracefully
+      person.admit_date || 'N/A',
+      person.availibility || 'N/A'
     ]);
   
     // Add the table to the PDF
@@ -76,12 +78,14 @@ const ExportPage = () => {
         BMI: person.BMI,
         'Contact Number': person.contact_number,
         Weight: person.weight,
+        availibility: person.availibility,
+        admit_date: person.admit_date
       }))
     );
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Persons');
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const workperson = XLSX.utils.person_new();
+    XLSX.utils.person_append_sheet(workperson, worksheet, 'Persons');
+    const excelBuffer = XLSX.write(workperson, { personType: 'xlsx', type: 'array' });
     const data = new Blob([excelBuffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     });
@@ -96,6 +100,9 @@ const ExportPage = () => {
         BMI: person.BMI,
         'Contact Number': person.contact_number,
         Weight: person.weight,
+        availibility: person.availibility,
+        admit_date: person.admit_date
+
       }))
     );
 
@@ -115,6 +122,8 @@ const ExportPage = () => {
       content += `BMI: ${person.BMI}\n`;
       content += `Contact Number: ${person.contact_number}\n`;
       content += `Weight: ${person.weight}\n`;
+      content += `availibility: ${person.availibility}\n`;
+      content += `admit_date: ${person.admit_date}\n`;
       content += '\n----------------------------\n\n';
     });
 

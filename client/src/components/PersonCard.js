@@ -64,9 +64,21 @@ const PersonCard = ({ person }) => {
         </Typography>
 
         {/* Availability */}
-        {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        { <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           Availability: {person.availability}
-        </Typography> */}
+        </Typography> }
+
+        {/* admit_date */}
+        { <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          admit_date: {person.admit_date}
+        </Typography> }
+
+        
+        {/* weight*/}
+        { <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          weight: {person.weight}
+        </Typography> }
+        
       </CardContent>
 
       {/* View Details Button */}
