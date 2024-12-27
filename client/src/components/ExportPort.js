@@ -23,7 +23,7 @@ const ExportPage = () => {
 
   useEffect(() => {
     axios
-      .get('https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets')
+      .get('https://5000-14padu-diettracker-m6tlj0zrrcj.ws-us117.gitpod.io')
       .then((res) => {
         setPersons(res.data);
         setLoading(false);
