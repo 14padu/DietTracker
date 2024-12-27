@@ -21,6 +21,14 @@ const HomePage = () => {
         >
           View Persons
         </Button>
+        <Button 
+          component={Link} 
+          to="/person-export" // Link to the Export page component
+          color="primary" 
+          variant="contained"
+        >
+          Export-list
+        </Button>
       </Box> 
     </Container>
   );

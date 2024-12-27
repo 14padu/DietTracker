@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Container,
+  TextField,
+  Typography,
+  Button,
+  Box,
+  Paper,
+  Divider,
+} from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function UpdatePersonInfo(props) {
-  const [person, setperson] = useState({
+const UpdatePersonInfo = () => {
+  const [person, setPerson] = useState({
     name: '',
     age: '',
     weight: '',
     BMI: '',
     contact_number: '',
-    
   });
 
   const { id } = useParams();
@@ -17,7 +27,7 @@ function UpdatePersonInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/persons/${id}`)
+      .get(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`)
       .then((res) => {
         setPerson({
           name: res.data.name,
@@ -25,13 +35,11 @@ function UpdatePersonInfo(props) {
           weight: res.data.weight,
           BMI: res.data.BMI,
           contact_number: res.data.contact_number,
-          availibility:res.data.availibility
-        
         });
       })
       .catch((err) => {
-        console.log('Error from UpdatePersonInfo GET request');
-        console.log(err)
+        console.error('Error fetching person details:', err);
+        toast.error('Failed to load person details.', { autoClose: 3000 });
       });
   }, [id]);
 
@@ -42,146 +50,82 @@ function UpdatePersonInfo(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-      name: person.name,
-      age: person.age,
-      weight: person.weight,
-      BMI: person.BMI,
-      contact_number: person.contact_number,
-      availibility:person.availibility
-      
-    };
-
     axios
-      .put(`/api/perons/${id}`, data)
-      .then((res) => {
+      .put(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`, person)
+      .then(() => {
+        toast.success('Person updated successfully!', { autoClose: 3000 });
         navigate(`/show-person/${id}`);
       })
       .catch((err) => {
-        console.log('Error in UpdatePersonInfo PUT request ->');
-        console.log(err)
+        console.error('Error updating person:', err);
+        toast.error('Failed to update person. Please try again.', { autoClose: 3000 });
       });
   };
 
   return (
-    <div className='UpdatePersonInfo'>
-      
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Person List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Edit Person</h1>
-            <p className='lead text-center'>Update Person's Info</p>
-          </div>
-        </div>
-
-        <div className='col-md-8 m-auto'>
-          <form noValidate onSubmit={onSubmit}>
-            <div className='form-group'>
-              <label htmlFor='name'>name</label>
-              <input
-                type='text'
-                placeholder='name of the person'
-                name='name'
-                className='form-control'
-                value={person.title}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='age'>age</label>
-              <input
-                type='text'
-                placeholder='age'
-                name='age'
-                className='form-control'
-                value={person.age}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='weight'>weight</label>
-              <input
-                type='text'
-                placeholder='weight'
-                name='weight'
-                className='form-control'
-                value={person.weight}
-                onChange={onChange}
-              />
-            </div>
-          
-
-            <div className='form-group'>
-              <label htmlFor='contact_number'>contact number</label>
-              <input
-                type='text'
-                placeholder='contact number'
-                name='contact_number'
-                className='form-control'
-                value={person.contact_number}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='BMI'>BMI</label>
-              <input
-                type='text'
-                placeholder='BMI of the Person'
-                name='BMI'
-                className='form-control'
-                value={person.BMI}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <br />
-
-<div className='form-group'>
-  <label htmlFor='BMI'>avilibility</label>
-  <input
-    type='text'
-    placeholder='availibility of the Person'
-    name='availibility'
-    className='form-control'
-    value={person.availibility}
-    onChange={onChange}
-  />
-</div>
-<br />
-
-            <button
-              type='submit'
-              className='btn btn-outline-info btn-lg btn-block'
-            >
+    <Container maxWidth="sm">
+      <ToastContainer />
+      <Paper elevation={3} sx={{ p: 4, mt: 4, mb: 4 }}>
+        <Typography variant="h4" gutterBottom align="center">
+          Edit Person
+        </Typography>
+        <Divider sx={{ my: 2 }} />
+        <form noValidate onSubmit={onSubmit}>
+          <Box display="flex" flexDirection="column" gap={2}>
+            <TextField
+              label="Name"
+              name="name"
+              value={person.name}
+              onChange={onChange}
+              fullWidth
+              required
+            />
+            <TextField
+              label="Age"
+              name="age"
+              value={person.age}
+              onChange={onChange}
+              fullWidth
+              required
+              type="number"
+            />
+            <TextField
+              label="Weight (kg)"
+              name="weight"
+              value={person.weight}
+              onChange={onChange}
+              fullWidth
+              required
+              type="number"
+            />
+            <TextField
+              label="BMI"
+              name="BMI"
+              value={person.BMI}
+              onChange={onChange}
+              fullWidth
+              required
+              type="number"
+            />
+            <TextField
+              label="Contact Number"
+              name="contact_number"
+              value={person.contact_number}
+              onChange={onChange}
+              fullWidth
+              required
+              type="tel"
+            />
+          </Box>
+          <Box display="flex" justifyContent="center" mt={3}>
+            <Button type="submit" variant="contained" color="primary" size="large">
               Update Person
-            </button>
-            <br /> <br />
-          </form>
-        </div>
-      </div>
-
-    </div>
+            </Button>
+          </Box>
+        </form>
+      </Paper>
+    </Container>
   );
-}
+};
 
 export default UpdatePersonInfo;
-
-
-
-
-
-
-

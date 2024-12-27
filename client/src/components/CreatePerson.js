@@ -1,214 +1,187 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Container} from '@mui/material';
-
-
-
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  Container,
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Paper,
+} from '@mui/material';
 
-const CreatePerson = (props) => {
-    const navigate = useNavigate();
-    const [person, setPerson] = useState({
-        name: '',
-        age:'',
-        contact_number:'', 
-        admit_Date: '',
-        weight:'',
-        BMI:'',
-        availability:'',
-      
-    });
-    const [showToast, setShowToast] = useState(false);
+const CreatePerson = () => {
+  const navigate = useNavigate();
+  const [person, setPerson] = useState({
+    name: '',
+    age: '',
+    contact_number: '',
+    BMI: '',
+    weight: ''
+  });
 
-    const onChange = (e) => {
-        setPerson({ ...person, [e.target.name]: e.target.value });
-      };
-    
-      const onSubmit = (e) => {
-        e.preventDefault();
-        
+  const onChange = (e) => {
+    setPerson({ ...person, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
     axios
-    .post('https://3000-14padu-diettracker-tcaq8wugkjl.ws-us117.gitpod.io/diets', person)
-    .then((res) => {
-      setPerson({
-        name: '',
-        age:'',
-        contact_number:'', 
-        // admit_Date: '',
-        weight:'',
-        BMI:'',
-        // availability:'',
-    
-        
-      });
+      .post('https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets', person)
+      .then(() => {
+        setPerson({
+          name: '',
+          age: '',
+          contact_number: '',
+          BMI: '',
+          weight: ''
+        });
 
-      
-        // Show the success alert
         toast.success('Person added successfully!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Slide,
-          });
+          position: 'top-right',
+          autoClose: 3000,
+          theme: 'dark',
+        });
 
-          setTimeout(() => {
-            setShowToast(false); // Hide the toast
-            navigate('/'); // Navigate to homepage
-          }, 5000); // Adjust the timeout as needed
-  
-        })
+        navigate('/person-list');
+      })
+      .catch((err) => {
+        console.error('Error creating person:', err);
 
-        .catch((err) => {
-            console.log('Error in CreatePerson!',err);
-          
-           
-            // Show the success alert
-            toast.error('Something went wrong, try again!', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Slide,
-            });
-          });
-      };
+        toast.error('Failed to add person. Please try again.', {
+          position: 'top-right',
+          autoClose: 5000,
+          theme: 'dark',
+        });
+      });
+  };
 
-      return (
-        <Container maxWidth="lg" sx={{ textAlign: 'center', py: 5 }}>
-        <div className='CreatePerson'>
-          {/* <Navbar /> */}
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            transition={Slide}
+  const handleCancel = () => {
+    navigate('/person-list');
+  };
+
+  return (
+    <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <ToastContainer />
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          borderRadius: '12px',
+          backgroundColor: 'background.paper',
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+        }}
+      >
+        <Box sx={{ textAlign: 'center', mb: 3 }}>
+          <Typography variant="h4" color="primary" gutterBottom>
+            Add a New Person
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Fill out the details to add a new person to the database.
+          </Typography>
+        </Box>
+
+        <Box
+          component="form"
+          onSubmit={onSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          {/* Name */}
+          <TextField
+            label="Name"
+            name="name"
+            type='String'
+            variant="outlined"
+            fullWidth
+            required
+            value={person.name}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
           />
-    
-          <div className='container'>
-            <div className='row'>
-              <div className='col-md-8 m-auto'>
-                <br />
-                <Link to='/' className='btn btn-outline-warning float-left'>
-                  
-                </Link>
-              </div>
-              <div className='col-md-8 m-auto'>
-                <h1 className='display-4 text-center'>Add Person</h1>
-                <p className='lead text-center'>Create new person</p>
-    
-                <form noValidate onSubmit={onSubmit}>
-                  {/* <Name /> */}
-                  <div className='form-group'>
-                    <input
-                      type='text'
-                      placeholder='Name of the Person'
-                      name='name'
-                      className='form-control'
-                      value={person.name}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <Age /> */}
-                  <div className='form-group'>
-                    <input
-                      type='text'
-                      placeholder='age of the person'
-                      name='age'
-                      className='form-control'
-                      value={person.age}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <Weight /> */}
-                  <div className='form-group'>
-                    <input
-                      type='text'
-                      placeholder='weight'
-                      name='weight'
-                      className='form-control'
-                      value={person.weight}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <BMI /> */}
-                  <div className='form-group'>
-                    <input
-                      type='text'
-                      placeholder='BMI'
-                      name='BMI'
-                      className='form-control'
-                      value={person.BMI}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  {/* <Contact Number /> */}
-                  <div className='form-group'>
-                    <input
-                      type='text'
-                      placeholder='contact_number'
-                      name='contact_number'
-                      className='form-control'
-                      value={person.contact_number}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-                  <br />
-                  {/* <Contact Number /> */}
-                  <div className='form-group'>
-                    <input
-                      type='text'
-                      placeholder='availibility'
-                      name='availibility'
-                      className='form-control'
-                      value={person.availibility}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <br />
-    
-                 
-    
-                  <input
-                    type='submit'
-                    className='btn btn-outline-warning btn-block mt-4'
-                  />
-                </form>
-              </div>
-            </div>
-          </div>
-    
-    
-        </div>
-        </Container>
-      );
-    };
-    
-    export default CreatePerson;
-    
 
-    
-  
+          {/* Age */}
+          <TextField
+            label="Age"
+            name="age"
+            type="number"
+            variant="outlined"
+            fullWidth
+            required
+            value={person.age}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
+          />
+
+          {/* Contact Number */}
+          <TextField
+            label="Contact Number"
+            name="contact_number"
+            type="String"
+            variant="outlined"
+            fullWidth
+            required
+            value={person.contact_number}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
+          />
+
+          {/* BMI */}
+          <TextField
+            label="BMI"
+            name="BMI"
+            type="number"
+            variant="outlined"
+            fullWidth
+            required
+            value={person.BMI}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
+          />
+
+          {/* Weight */}
+          <TextField
+            label="Weight (kg)"
+            name="weight"
+            type="number"
+            variant="outlined"
+            fullWidth
+            required
+            value={person.weight}
+            onChange={onChange}
+            inputMode={{
+              style: { color: 'black' }}}
+          />
+
+          {/* Buttons */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Add Person
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              fullWidth
+              onClick={handleCancel}
+              sx={{ ml: 2 }}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+    </Container>
+  );
+};
+
+export default CreatePerson;

@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const cors = require("cors");
-const diets = require("./routes/dietRoutes");
+const router = require("./routes/dietRoutes");
 const path = require('path');
 require("dotenv").config({ path: "./config.env" });
 
@@ -14,7 +14,17 @@ const app = express();
 // HANDLE MIDDLEWARE
 app.use(express.json());
 app.use(cors());
-app.use("/api/diets", diets); // Route prefix
+
+// Basic route for home page
+app.get("/home", (req, res) => {
+    res.send("WELL_COME TO MY CLINIC MANAGEMENT PROJECT");
+});
+
+
+
+
+// Use clinic routes with prefix '/api'
+app.use('/api', router);
 
 // SERVE STATIC FILES
 app.use(express.static(path.join(__dirname, "./client/build")));

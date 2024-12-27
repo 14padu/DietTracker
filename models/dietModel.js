@@ -2,19 +2,10 @@ const mongoose = require('mongoose');
 
 const DietSchema = new mongoose.Schema({
     name: {
-        type: String, // Corrected from Number to String
+        type: String,
         required: true
     },
     age: {
-        type: Number,
-        required: true
-    },
-    contact_number: {
-        type: String, // Phone numbers are better stored as strings to handle leading zeros and large values
-        required: true,
-        unique: true
-    },
-    BMI: {
         type: Number,
         required: true
     },
@@ -22,12 +13,15 @@ const DietSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    availibility: {
-        type: Boolean, // Changed to Boolean as it represents availability
+    BMI: {
+        type: Number,
         required: true
+    },
+    contact_number: {
+        type: String,
+        required: true,
+        unique: true
     }
-}, {
-    timestamps: true // Adds createdAt and updatedAt fields
 });
 
 const DietModel = mongoose.model('DietData', DietSchema);

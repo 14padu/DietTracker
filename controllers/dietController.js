@@ -1,30 +1,29 @@
 const DietModel = require('../models/dietModel');
 
 // Create a new diet
-exports.createDiet = async (req, res) => { // Renamed from 'creatediet'
+exports.createDiet = async (req, res) => {
     try {
         let newdiet = new DietModel({
             name: req.body.name,
             age: req.body.age,
             weight: req.body.weight,
-            availibility: req.body.availibility,
             BMI: req.body.BMI,
-            contact_number: req.body.contact_number,
+            contact_number: req.body.contact_number
         });
         newdiet = await newdiet.save();
         res.send(newdiet);
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(`Error creating diet: ${err.message}`);
     }
 };
 
 // Get all diets
-exports.getAllDiets = async (req, res) => { // Fixed the return value
+exports.getAllDiets = async (req, res) => {
     try {
         const allDiets = await DietModel.find();
-        res.send(allDiets); // Corrected from 'res.send(all)' to 'res.send(allDiets)'
+        res.send(allDiets);
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(`Error fetching diets: ${err.message}`);
     }
 };
 
@@ -35,7 +34,7 @@ exports.getDietById = async (req, res) => {
         if (!dietById) return res.status(404).send('Diet not found in database');
         res.send(dietById);
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(`Error fetching diet: ${err.message}`);
     }
 };
 
@@ -44,17 +43,16 @@ exports.updateDiet = async (req, res) => {
     try {
         const updatedDiet = await DietModel.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
-            BMI: req.body.BMI,
-            contact_number: req.body.contact_number,
-            availibility: req.body.availibility,
+            age: req.body.age,
             weight: req.body.weight,
-            age: req.body.age
+            BMI: req.body.BMI,
+            contact_number: req.body.contact_number
         }, { new: true });
 
         if (!updatedDiet) return res.status(404).send('Diet not found in database');
         res.send(updatedDiet);
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(`Error updating diet: ${err.message}`);
     }
 };
 
@@ -63,8 +61,8 @@ exports.deleteDiet = async (req, res) => {
     try {
         const dietById = await DietModel.findByIdAndDelete(req.params.id);
         if (!dietById) return res.status(404).send('Diet not found in database');
-        res.send("Diet deleted successfully");
+        res.send('Diet deleted successfully');
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(`Error deleting diet: ${err.message}`);
     }
 };

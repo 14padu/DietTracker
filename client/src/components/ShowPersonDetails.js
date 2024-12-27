@@ -7,8 +7,6 @@ import {
   Typography,
   Grid,
   Button,
-  Card,
-  CardMedia,
   Divider,
   Box,
 } from '@mui/material';
@@ -17,6 +15,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -27,19 +27,20 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const ShowPersonDetails = () => {
-  const [person, setperson] = useState({});
+  const [person, setPerson] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`/api/persons/${id}`)
+      .get(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`)
       .then((res) => {
         setPerson(res.data);
       })
       .catch((err) => {
-        console.log('Error from ShowPersonDetails');
+        console.error('Error fetching person details:', err);
+        toast.error('Failed to load person details.', { autoClose: 3000 });
       });
   }, [id]);
 
@@ -49,12 +50,14 @@ const ShowPersonDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`/api/persons/${id}`)
-      .then((res) => {
+      .delete(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`)
+      .then(() => {
+        toast.success('Person deleted successfully!', { autoClose: 3000 });
         navigate('/person-list');
       })
       .catch((err) => {
-        console.log('Error from ShowPersonDetails_deleteClick');
+        console.error('Error deleting person:', err);
+        toast.error('Failed to delete person. Please try again.', { autoClose: 3000 });
       });
     setOpenDialog(false);
   };
@@ -63,48 +66,36 @@ const ShowPersonDetails = () => {
     setOpenDialog(false);
   };
 
-  return (
-    <Container maxWidth="md">
-      <StyledPaper>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="300"
-                image="https://www.gettyimages.com/photos/food-tracker"
-                alt={book.title}
-              />
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              {person.title}
-            </Typography>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              by {Person.weight}
-            </Typography>
-            <Divider sx={{ my: 2 }} />
-            
-            {/* Display book details one after another */}
-            <Box display="flex" flexDirection="column">
-              <Typography variant="body1" paragraph>
-                {Person.description}
-              </Typography>
-              <Typography variant="body1">ISBN: {person.BMI}</Typography>
-              <Typography variant="body1">Published: {person.weight}</Typography>
-              <Typography variant="body1">Publisher: {person.contact_number}</Typography>
-              <Typography variant="body1">availibility: {person.availibility}</Typography>
-            </Box>
+  if (!person) {
+    return (
+      <Container maxWidth="md">
+        <Typography variant="h6" color="textSecondary" align="center" sx={{ mt: 4 }}>
+          Loading person details...
+        </Typography>
+      </Container>
+    );
+  }
 
-          </Grid>
-        </Grid>
-        
-        <Box mt={4} display="flex" justifyContent="space-between">
+  return (
+    <Container maxWidth="sm">
+      <ToastContainer />
+      <StyledPaper>
+        <Box display="flex" flexDirection="column" gap={2}>
+          <Typography variant="h4" gutterBottom>
+            {person.name}
+          </Typography>
+          <Divider sx={{ my: 2 }} />
+          <Typography variant="body1">Age: {person.age}</Typography>
+          <Typography variant="body1">Contact Number: {person.contact_number}</Typography>
+          <Typography variant="body1">BMI: {person.BMI}</Typography>
+          <Typography variant="body1">Weight: {person.weight} kg</Typography>
+        </Box>
+        <Divider sx={{ my: 3 }} />
+        <Box display="flex" justifyContent="space-between">
           <Button
             startIcon={<ArrowBackIcon />}
             component={RouterLink}
-            to="/book-list"
+            to="/person-list"
             variant="outlined"
           >
             Back to Person List
@@ -113,12 +104,12 @@ const ShowPersonDetails = () => {
             <Button
               startIcon={<EditIcon />}
               component={RouterLink}
-              to={`/edit-book/${person._id}`}
+              to={`/edit-person/${person._id}`}
               variant="contained"
               color="primary"
               sx={{ mr: 1 }}
             >
-              Edit Person
+              Edit
             </Button>
             <Button
               startIcon={<DeleteIcon />}
@@ -126,13 +117,13 @@ const ShowPersonDetails = () => {
               variant="contained"
               color="error"
             >
-              Delete Person
+              Delete
             </Button>
           </Box>
         </Box>
       </StyledPaper>
 
-      {/* Keep the dialog unchanged */}
+      {/* Delete Confirmation Dialog */}
       <Dialog
         open={openDialog}
         onClose={handleDeleteCancel}
@@ -142,7 +133,7 @@ const ShowPersonDetails = () => {
         <DialogTitle id="alert-dialog-title">{"Confirm Deletion"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this Diet? This action cannot be undone.
+            Are you sure you want to delete this person? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

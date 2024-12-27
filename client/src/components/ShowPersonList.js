@@ -1,4 +1,3 @@
-// src/components/ShowBookList.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -12,7 +11,7 @@ function ShowPersonList() {
 
   useEffect(() => {
     axios
-      .get(`/api/persons`)
+      .get('https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets')
       .then((res) => {
         setPersons(res.data);
         setLoading(false); // Set loading to false once data is fetched

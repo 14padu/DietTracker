@@ -1,24 +1,23 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-//import { ThemeProvider } from '@mui/material/styles';
-import {  Box } from '@mui/material';
-//import dietTrackerTheme from './theme/diettracker';
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, Box } from '@mui/material';
+import dietTrackerTheme from './theme/diettracker';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
  import CreatePerson from './components/CreatePerson';
  import ShowPersonList from './components/ShowPersonList';
-// import ShowPersonDetails from './components/ShowPersonDetails';
-// import UpdatePersonInfo from './components/UpdatePersonInfo';
+ import ShowPersonDetails from './components/ShowPersonDetails';
+ import UpdatePersonInfo from './components/UpdatePersonInfo';
  import HomePage from './components/HomePage';
-
-// import NotesPage from './components/NotesPage'; // Import NotesPage component
+import ExportPerson from './components/ExportPort';
 
 const App = () => {
   return (
-   //  <ThemeProvider theme={diettrackerTheme}>
-       //<CssBaseline />
+     <ThemeProvider theme={dietTrackerTheme}>
+       <CssBaseline />
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
           <Navbar />
@@ -28,15 +27,15 @@ const App = () => {
               
               <Route path='/person-add' element={<CreatePerson />} />
               <Route path='/person-list' element={<ShowPersonList />} />
-              {/* <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
+              <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
               <Route path='/show-person/:id' element={<ShowPersonDetails />} />
-              <Route path='/notes/*' element={<NotesPage />} />  */}
+              <Route path='/person-export' element={<ExportPerson />} />
             </Routes>
           </Box>
           <Footer />
         </Box>
       </Router>
-      // </ThemeProvider>
+     </ThemeProvider>
   );
 };
 
