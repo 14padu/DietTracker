@@ -30,7 +30,7 @@ const CreatePerson = () => {
     e.preventDefault();
 
     axios
-      .post('https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets', person)
+      .post('https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets', person)
       .then(() => {
         setPerson({
           name: '',

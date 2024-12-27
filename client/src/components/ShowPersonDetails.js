@@ -34,7 +34,7 @@ const ShowPersonDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`)
+      .get(`https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets/${id}`)
       .then((res) => {
         setPerson(res.data);
       })
@@ -50,7 +50,7 @@ const ShowPersonDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`)
+      .delete(`https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets/${id}`)
       .then(() => {
         toast.success('Person deleted successfully!', { autoClose: 3000 });
         navigate('/person-list');

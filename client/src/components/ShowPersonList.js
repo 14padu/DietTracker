@@ -11,7 +11,7 @@ function ShowPersonList() {
 
   useEffect(() => {
     axios
-      .get('https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets')
+      .get('https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets')
       .then((res) => {
         setPersons(res.data);
         setLoading(false); // Set loading to false once data is fetched
