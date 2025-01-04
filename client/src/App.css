@@ -1,141 +1,79 @@
-.box-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  /* Changed from fixed width to max-width */
-  margin: 40px auto;
-  background-color: #f9f9f9;
+/* Global Styles */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Form Styles */
-.form-container {
-  width: 100%;
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #1c1c1c;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Input Field Styles */
-.input-field {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Typography */
+h1, h2, h3 {
+  font-family: 'Arial', sans-serif;
+  color: #e0e0e0;
 }
 
-/* Button Group Styles */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
 
-/* Button Styles */
-.btn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+h2 {
+  font-size: 2rem;
+  color: #2196F3;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #b0b0b0;
+}
+
+/* Buttons */
+button {
+  background-color: #2196F3;
   color: white;
-  text-decoration: none;
-  min-width: 120px;
-  /* Added minimum width */
+  padding: 12px 20px;
+  border: none;
+  border-radius: 50px;
   font-size: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Color palette for buttons */
-.btn-update {
-  margin-left: 20px;
-  background-color: #28a745;
+button:hover {
+  background-color: #1976D2;
+  transform: translateY(-2px);
 }
 
-.btn-cancel {
-  background-color: #6c757d;
+/* Input Fields */
+input[type="text"], input[type="number"], textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a2a2a;
+  color: white;
+  border-radius: 8px;
+  border: 1px solid #2196F3;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-.btn-home {
-  background-color: #17a2b8;
+/* Links */
+a {
+  color: #2196F3;
+  text-decoration: none;
 }
 
-.btn-add {
-  background-color: #ffc107;
-}
-
-.btn-delete {
-  background-color: #dc3545;
-}
-
-/* Add these to your global CSS file */
-
-@media (max-width: 768px) {
-  .box-container {
-      margin: 20px auto;
-  }
-
-  .button-group {
-      flex-direction: column;
-  }
-
-  .btn {
-      min-width: 100%;
-      margin-bottom: 10px;
-  }
-}
-
-.notification {
-  position: centre;
-  top: 20px;
-  right: 20px;
-  padding: 15px 30px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s forwards;
-}
-
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(-20px);
-  }
-
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
-
-.notification+.notification {
-  margin-top: 20px;
-}
-
-.notification-success {
-  background-color: #dcf8c6;
-  color: #2e865f;
-}
-
-.notification-error {
-  background-color: #fbe0e4;
-  color: #a94442;
-}
-
-.notification-warning {
-  background-color: #fcf8e3;
-  color: #8a6d3b;
-}
-
-.notification-info {
-  background-color: #d9edf7;
-  color: #31708f;
-}
-
-.notification button {
-  float: right;
-  margin-left: 10px;
+a:hover {
+  text-decoration: underline;
 }

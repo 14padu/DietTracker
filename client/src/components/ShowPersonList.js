@@ -11,7 +11,7 @@ function ShowPersonList() {
 
   useEffect(() => {
     axios
-      .get('https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets')
+      .get('https://diet-track-5chn.onrender.com/api/diets')
       .then((res) => {
         setPersons(res.data);
         setLoading(false); // Set loading to false once data is fetched
@@ -24,44 +24,71 @@ function ShowPersonList() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" color="primary" gutterBottom>
-        Persons List
-      </Typography>
+      {/* Title Section */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+        <Typography variant="h3" component="h1" color="secondary" fontWeight="bold">
+          Persons List
+        </Typography>
+        <Button
+          component={Link}
+          to="/person-add"
+          variant="contained"
+          sx={{
+            backgroundColor: '#FF4081', // Pink background
+            '&:hover': {
+              backgroundColor: '#F50057', // Darker pink on hover
+            },
+            padding: '12px 20px',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          Add New Person
+        </Button>
+      </Box>
 
-      <Button
-        component={Link}
-        to="/person-add"
-        color="primary"
-        variant="contained"
-        sx={{ mb: 4 }}
-      >
-        Add New Person
-      </Button>
-
+      {/* Loading Spinner */}
       {loading ? (
-        // Show a loading spinner while data is being fetched
-        <Box display="flex" justifyContent="center" mt={4}>
-          <CircularProgress />
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+          sx={{
+            backgroundColor: 'rgba(0, 0, 0, 0.05)', // Light background overlay
+            borderRadius: '8px',
+            padding: '30px 0',
+          }}
+        >
+          <CircularProgress color="secondary" size={60} />
         </Box>
       ) : (
-        <Grid container spacing={3}>
+        // Data Display Section
+        <Box>
           {persons.length === 0 ? (
-            <Grid item xs={12}>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              sx={{ height: '200px' }}
+            >
               <Typography variant="h6" color="text.secondary">
-              'There is no person record!'
+                No person records available!
               </Typography>
-            </Grid>
+            </Box>
           ) : (
-            persons.map((person, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <PersonCard person={person} />
-              </Grid>
-            ))
+            <Grid container spacing={3}>
+              {persons.map((person, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <PersonCard person={person} />
+                </Grid>
+              ))}
+            </Grid>
           )}
-        </Grid>
+        </Box>
       )}
     </Container>
   );
-}
+};
 
 export default ShowPersonList;

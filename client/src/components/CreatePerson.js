@@ -130,7 +130,7 @@ const CreatePerson = () => {
           <TextField
             label="Contact Number"
             name="contact_number"
-            type="String"
+            type="number"
             variant="outlined"
             fullWidth
             required
