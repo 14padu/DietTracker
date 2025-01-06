@@ -23,7 +23,7 @@ const ExportPage = () => {
 
   useEffect(() => {
     axios
-      .get('https://5000-14padu-diettracker-m6tlj0zrrcj.ws-us117.gitpod.io')
+      .get('https://diet-track-5chn.onrender.com.gitpod.io')
       .then((res) => {
         setPersons(res.data);
         setLoading(false);
@@ -76,7 +76,7 @@ const ExportPage = () => {
         Name: person.name,
         Age: person.age,
         BMI: person.BMI,
-        'Contact Number': person.contact_number,
+        Contact_Number: person.contact_number,
         Weight: person.weight,
         availibility: person.availibility,
         admit_date: person.admit_date
@@ -98,7 +98,7 @@ const ExportPage = () => {
         Name: person.name,
         Age: person.age,
         BMI: person.BMI,
-        'Contact Number': person.contact_number,
+        Contact_Number: person.contact_number,
         Weight: person.weight,
         availibility: person.availibility,
         admit_date: person.admit_date
@@ -120,7 +120,7 @@ const ExportPage = () => {
       content += `Name: ${person.name}\n`;
       content += `Age: ${person.age}\n`;
       content += `BMI: ${person.BMI}\n`;
-      content += `Contact Number: ${person.contact_number}\n`;
+      content += `Contact_Number: ${person.contact_number}\n`;
       content += `Weight: ${person.weight}\n`;
       content += `availibility: ${person.availibility}\n`;
       content += `admit_date: ${person.admit_date}\n`;

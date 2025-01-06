@@ -8,9 +8,11 @@ exports.createDiet = async (req, res) => {
             age: req.body.age,
             weight: req.body.weight,
             BMI: req.body.BMI,
-            contact_number: req.body.contact_number
+            contact_number: req.body.contact_number,
+            admit_date: req.body.admit_date,
+            availibility: req.body.availibility
         });
-        newdiet = await newdiet.save();
+        newdiet = await newdiet.save(); 
         res.send(newdiet);
     } catch (err) {
         res.status(400).send(`Error creating diet: ${err.message}`);
@@ -46,7 +48,9 @@ exports.updateDiet = async (req, res) => {
             age: req.body.age,
             weight: req.body.weight,
             BMI: req.body.BMI,
-            contact_number: req.body.contact_number
+            contact_number: req.body.contact_number,
+            admit_date: req.body.admit_date,
+            availibility: req.body.availibility
         }, { new: true });
 
         if (!updatedDiet) return res.status(404).send('Diet not found in database');

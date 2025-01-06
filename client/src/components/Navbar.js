@@ -78,7 +78,7 @@ const Navbar = () => {
           <IconButton
             color="primary"
             component="a"
-            href="https://github.com/14padu/DietTracker.git"
+            href="https://diet-track-5chn.onrender.com"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

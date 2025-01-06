@@ -21,6 +21,11 @@ const DietSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    admit_date:{
+        type: Number,
+        required: true,
+        unique: true
     }
 });
 

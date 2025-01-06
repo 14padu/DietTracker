@@ -29,7 +29,7 @@ const UpdatePersonInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`https://5000-14padu-diettracker-r6iwigoyfpk.ws-us117.gitpod.io/api/diets/${id}`)
+      .get(`https://diet-track-5chn.onrender.com/api/diets/${id}`)
       .then((res) => {
         setPerson({
           name: res.data.name,
@@ -55,7 +55,7 @@ const UpdatePersonInfo = () => {
     e.preventDefault();
 
     axios
-      .put(`https://5000-14padu-diettracker-3r6s18esjam.ws-us117.gitpod.io/api/diets/${id}`, person)
+      .put(`https://diet-track-5chn.onrender.com/api/diets/${id}`, person)
       .then(() => {
         toast.success('Person updated successfully!', { autoClose: 3000 });
         navigate(`/show-person/${id}`);
