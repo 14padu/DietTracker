@@ -71,7 +71,7 @@ const HomePage = () => {
             Welcome to Diet Tracker Project
           </Typography>
           <Typography variant="h6" color="text.secondary" gutterBottom>
-            Your Diet, Your Priority
+            Your Diet , Your Priority
           </Typography>
         </Box>
 
@@ -201,7 +201,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component="a"
-              href="https://github.com/14padu/DietTracker.git"
+              href="https://github.com/14padu/DietTracker.git/api/diets"
               target="_blank"
               rel="noopener noreferrer"
               variant="contained"

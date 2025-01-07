@@ -37,7 +37,6 @@ const UpdatePersonInfo = () => {
           weight: res.data.weight,
           BMI: res.data.BMI,
           contact_number: res.data.contact_number,
-          
           avalibility: res.data.availibility
         });
       })

@@ -9,7 +9,6 @@ exports.createDiet = async (req, res) => {
             weight: req.body.weight,
             BMI: req.body.BMI,
             contact_number: req.body.contact_number,
-            
             availibility: req.body.availibility
         });
         newdiet = await newdiet.save(); 
@@ -49,7 +48,6 @@ exports.updateDiet = async (req, res) => {
             weight: req.body.weight,
             BMI: req.body.BMI,
             contact_number: req.body.contact_number,
-            
             availibility: req.body.availibility
         }, { new: true });
 

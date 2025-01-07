@@ -17,7 +17,7 @@ app.use(cors());
 
 // Basic route for home page
 app.get("/home", (req, res) => {
-    res.send("WELL_COME TO MY CLINIC MANAGEMENT PROJECT");
+    res.send("WELL_COME TO DIET TRACKER PROJECT");
 });
 
 

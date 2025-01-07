@@ -51,7 +51,6 @@ const ExportPage = () => {
       person.BMI,
       person.contact_number || 'N/A', // Handle missing contact number gracefully
       person.weight || 'N/A', // Handle missing weight gracefully
-      
       person.availibility || 'N/A'
     ]);
   

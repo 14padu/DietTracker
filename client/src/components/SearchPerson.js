@@ -188,7 +188,7 @@ const SearchPersons = () => {
                                 <InputLabel>contact_Number</InputLabel>
                                 <Select
                                     value={filters.contact_Number}
-                                    label="Publisher"
+                                    label="contact_Number"
                                     onChange={(e) => setFilters({ ...filters, contact_Number: e.target.value })}
                                 >
                                     <MenuItem value="all">All contact_Number</MenuItem>
