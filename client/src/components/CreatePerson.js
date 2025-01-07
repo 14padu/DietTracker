@@ -20,8 +20,7 @@ const CreatePerson = () => {
     contact_number: '',
     BMI: '',
     weight: '',
-    availibility: ''
-    
+    availibilty: ''
   });
 
   const onChange = (e) => {
@@ -32,7 +31,7 @@ const CreatePerson = () => {
     e.preventDefault();
 
     axios
-      .post('https://diet-track-5chn.onrender.com/api/diets', person)
+      .post('https://5000-14padu-diettracker-m1sjmu5wlwe.ws-us117.gitpod.io/api/diets', person)
       .then(() => {
         setPerson({
           name: '',

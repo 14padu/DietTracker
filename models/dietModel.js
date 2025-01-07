@@ -22,6 +22,11 @@ const DietSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    availibility: {
+        type: String,
+        required: true,
+        unique: true
+    }
     
     
 });

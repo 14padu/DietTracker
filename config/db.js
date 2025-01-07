@@ -1,20 +1,22 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-
-// Load environment variables
-dotenv.config({ path: './config.env' });
+const mongoose = require("mongoose")
 
 const connectDB = async () => {
-    try {
-        const DB = process.env.DATABASE;
-        
-        console.log('Connecting to:', DB); // Log the URI for debugging
-        const conn = await mongoose.connect(DB);
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
-    } catch (error) {
-        console.error(`Error: ${error.message}`);
-        process.exit(1); // Exit with failure
-    }
-};
+  try {
+    mongoose.set("strictQuery", true)
+    await mongoose.connect(process.env.DATABASE, {
+      useNewUrlParser: true,
+    })
+    .then(() => {
+      console.log("Successfully connected to MongoDB Atlas");
+    })
+  }
+  catch (err) {
+    console.error(err.message)
+    console.log("FIX THE DB CONNECTIVITY CODE OR MONGODB URL/USERNAME/PASSWORD!!!")
+    // process.exit(1)
+  }
+}
 
-module.exports = connectDB;
+module.exports = connectDB
+
+// green-barracuda-tux
