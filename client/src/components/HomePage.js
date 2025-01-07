@@ -145,7 +145,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component={Link}
-              to="/create-person"
+              to="/person-add"
               variant="contained"
               size="large"
               startIcon={<AddIcon />}
