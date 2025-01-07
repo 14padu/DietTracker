@@ -24,28 +24,28 @@ const SearchPersons = () => {
     const [persons, setPersons] = useState([]);
     const [filteredPersons, setFilteredPersons] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [publishers, setPublishers] = useState([]);
+    const [contact_Number, setcontact_Number] = useState([]);
 
     const [filters, setFilters] = useState({
         searchTerm: '',
         searchField: 'title',
         sortBy: 'title',
         sortOrder: 'asc',
-        publisher: 'all'
+        contact_Number: 'all'
     });
 
     useEffect(() => {
-        axios.get('/api/persons')
+        axios.get('https://diet-track-5chn.onrender.com/api/diets')
             .then(res => {
                 setPersons(res.data);
                 setFilteredPersons(res.data);
                 // Extract unique publishers
-                const uniquePublishers = [...new Set(res.data.map(book => book.publisher))];
-                setPublishers(uniquePublishers);
+                const contact_Number = [...new Set(res.data.map(person => person.contact_Number))];
+                setcontact_Number(contact_Number);
                 setLoading(false);
             })
             .catch(err => {
-                console.error('Error fetching books:', err);
+                console.error('Error fetching persons:', err);
                 setLoading(false);
             });
     }, []);
@@ -55,15 +55,15 @@ const SearchPersons = () => {
 
         // Apply search
         if (filters.searchTerm) {
-            result = result.filter(book => {
-                const searchValue = book[filters.searchField]?.toString().toLowerCase();
+            result = result.filter(person => {
+                const searchValue = person[filters.searchField]?.toString().toLowerCase();
                 return searchValue?.includes(filters.searchTerm.toLowerCase());
             });
         }
 
         // Apply publisher filter
         if (filters.publisher !== 'all') {
-            result = result.filter(book => book.publisher === filters.publisher);
+            result = result.filter(person => person.contact_Nmuber === filters.contact_Number);
         }
 
         // Apply sorting
@@ -71,9 +71,9 @@ const SearchPersons = () => {
             let valueA = a[filters.sortBy]?.toString().toLowerCase();
             let valueB = b[filters.sortBy]?.toString().toLowerCase();
 
-            if (filters.sortBy === 'published_date') {
-                valueA = new Date(a.published_date);
-                valueB = new Date(b.published_date);
+            if (filters.sortBy === 'contact_Number') {
+                valueA = new Date(a.contact_Number);
+                valueB = new Date(b.contact_Number);
             }
 
             if (valueA < valueB) return filters.sortOrder === 'asc' ? -1 : 1;
@@ -94,7 +94,7 @@ const SearchPersons = () => {
             searchField: 'title',
             sortBy: 'title',
             sortOrder: 'asc',
-            publisher: 'all'
+         contact_Number: 'all'
         });
     };
 
@@ -138,10 +138,12 @@ const SearchPersons = () => {
                                     label="Search By"
                                     onChange={(e) => setFilters({ ...filters, searchField: e.target.value })}
                                 >
-                                    <MenuItem value="title">Title</MenuItem>
-                                    <MenuItem value="author">Author</MenuItem>
-                                    <MenuItem value="isbn">ISBN</MenuItem>
-                                    <MenuItem value="publisher">Publisher</MenuItem>
+                                    <MenuItem value="BMI">BMI</MenuItem>
+                                    <MenuItem value="Name">Name</MenuItem>
+                                    <MenuItem value="weight">weight</MenuItem>
+                                    <MenuItem value="contact_Number">contact_Number</MenuItem>
+                                    <MenuItem value="availibility">availibility</MenuItem>
+                                    <MenuItem value="age">age</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -155,9 +157,12 @@ const SearchPersons = () => {
                                     label="Sort By"
                                     onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
                                 >
-                                    <MenuItem value="title">Title</MenuItem>
-                                    <MenuItem value="author">Author</MenuItem>
-                                    <MenuItem value="published_date">Date</MenuItem>
+                                    <MenuItem value="Name">Title</MenuItem>
+                                    <MenuItem value="age">Author</MenuItem>
+                                    <MenuItem value="contact_Number">contact_Number</MenuItem>
+                                    <MenuItem value="BMI">BMI</MenuItem>
+                                    <MenuItem value="weight">weight</MenuItem>
+                                    <MenuItem value="availibility">availibility</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -180,16 +185,16 @@ const SearchPersons = () => {
                         {/* Publisher Filter */}
                         <Grid item xs={12} md={2}>
                             <FormControl fullWidth>
-                                <InputLabel>Publisher</InputLabel>
+                                <InputLabel>contact_Number</InputLabel>
                                 <Select
-                                    value={filters.publisher}
+                                    value={filters.contact_Number}
                                     label="Publisher"
-                                    onChange={(e) => setFilters({ ...filters, publisher: e.target.value })}
+                                    onChange={(e) => setFilters({ ...filters, contact_Number: e.target.value })}
                                 >
-                                    <MenuItem value="all">All Publishers</MenuItem>
-                                    {publishers.map((publisher, index) => (
-                                        <MenuItem key={index} value={publisher}>
-                                            {publisher}
+                                    <MenuItem value="all">All contact_Number</MenuItem>
+                                    {contact_Number.map((contact_Number, index) => (
+                                        <MenuItem key={index} value={contact_Number}>
+                                            {contact_Number}
                                         </MenuItem>
                                     ))}
                                 </Select>

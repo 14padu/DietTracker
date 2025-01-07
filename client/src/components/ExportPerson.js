@@ -23,7 +23,7 @@ const ExportPage = () => {
 
   useEffect(() => {
     axios
-      .get('https://diet-track-5chn.onrender.com.gitpod.io')
+      .get('https://diet-track-5chn.onrender.com/api/diets')
       .then((res) => {
         setPersons(res.data);
         setLoading(false);

@@ -10,6 +10,7 @@ import CreatePerson from './components/CreatePerson';
 import ShowPersonList from './components/ShowPersonList';
 import ShowPersonDetails from './components/ShowPersonDetails';
 import UpdatePersonInfo from './components/UpdatePersonInfo';
+import QRCodePage from './components/QRCodePage';
 import HomePage from './components/HomePage';
 import ExportPerson from './components/ExportPerson';  // Corrected import name
 import SearchPerson from './components/SearchPerson';  // Ensure SearchPerson is imported
@@ -28,7 +29,9 @@ const App = () => {
                 <Route path='/person-add' element={<CreatePerson />} />
                 <Route path='/person-list' element={<ShowPersonList />} />
                 <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
+               
                 <Route path='/show-person/:id' element={<ShowPersonDetails />} />
+                <Route path="/qr-codes" element={<QRCodePage />} />
                 <Route path='/person-export' element={<ExportPerson />} />  {/* Fixed name here */}
                 <Route path='/search-person' element={<SearchPerson />} />  {/* Added SearchPerson route */}
               </Routes>
