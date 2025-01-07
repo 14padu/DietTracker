@@ -51,7 +51,7 @@ const ExportPage = () => {
       person.BMI,
       person.contact_number || 'N/A', // Handle missing contact number gracefully
       person.weight || 'N/A', // Handle missing weight gracefully
-      person.admit_date || 'N/A',
+      
       person.availibility || 'N/A'
     ]);
   
@@ -78,8 +78,8 @@ const ExportPage = () => {
         BMI: person.BMI,
         Contact_Number: person.contact_number,
         Weight: person.weight,
-        availibility: person.availibility,
-        admit_date: person.admit_date
+        availibility: person.availibility
+      
       }))
     );
 
@@ -100,8 +100,8 @@ const ExportPage = () => {
         BMI: person.BMI,
         Contact_Number: person.contact_number,
         Weight: person.weight,
-        availibility: person.availibility,
-        admit_date: person.admit_date
+        availibility: person.availibility
+        
 
       }))
     );
@@ -123,7 +123,7 @@ const ExportPage = () => {
       content += `Contact_Number: ${person.contact_number}\n`;
       content += `Weight: ${person.weight}\n`;
       content += `availibility: ${person.availibility}\n`;
-      content += `admit_date: ${person.admit_date}\n`;
+    
       content += '\n----------------------------\n\n';
     });
 

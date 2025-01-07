@@ -64,13 +64,7 @@ const PersonCard = ({ person }) => {
           </Typography>
         )}
 
-        {/* Admit Date */}
-        {person.admit_date && (
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            Admit Date: <span style={{ color: '#673ab7' }}>{person.admit_date}</span>
-          </Typography>
-        )}
-
+      
         {/* Weight */}
         {person.weight && (
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>

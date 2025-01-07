@@ -22,11 +22,8 @@ const DietSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    admit_date:{
-        type: Number,
-        required: true,
-        unique: true
-    }
+    
+    
 });
 
 const DietModel = mongoose.model('DietData', DietSchema);

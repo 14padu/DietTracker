@@ -20,8 +20,8 @@ const CreatePerson = () => {
     contact_number: '',
     BMI: '',
     weight: '',
-    availibility: '',
-    admit_date: ''
+    availibility: ''
+    
   });
 
   const onChange = (e) => {
@@ -40,8 +40,8 @@ const CreatePerson = () => {
           contact_number: '',
           BMI: '',
           weight: '',
-          availibility: '',
-          admit_date: '',
+          availibility: ''
+          
 
         });
 
@@ -168,20 +168,7 @@ const CreatePerson = () => {
               style: { color: 'black' }}}
           />
 
-          {/* admit_date */}
-            <TextField
-            label="admit_date "
-            name="admit_date"
-            type="number"
-            variant="outlined"
-            fullWidth
-            required
-            value={person.admit_date}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
-          />
-
+         
            {/* availibility */}
            <TextField
             label="availibility "
