@@ -33,7 +33,7 @@ const QRCodePage = () => {
 
   const downloadQR = (personId, personTitle) => {
     const canvas = document.createElement("canvas");
-    const svg = document.getElementById(`qr-${dietId}`);
+    const svg = document.getElementById(`qr-${personId}`);
     const serializer = new XMLSerializer();
     const source = serializer.serializeToString(svg);
     
@@ -47,7 +47,7 @@ const QRCodePage = () => {
       ctx.drawImage(img, 0, 0);
       
       const a = document.createElement('a');
-      a.download = `QR-${dietTitle.replace(/\s+/g, '-')}.png`;
+      a.download = `QR-${personTitle.replace(/\s+/g, '-')}.png`;
       a.href = canvas.toDataURL('image/png');
       a.click();
     };
