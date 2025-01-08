@@ -6,42 +6,35 @@ import {
   Container,
   TextField,
   Typography,
- 
   Grid,
 } from "@mui/material";
 import axios from "axios";
-import { useSnackbar } from "notistack"; // Import the useSnackbar hook
-
-//const URL = process.env.REACT_APP_API_URL; // Access environment variable
 
 function UpdatePersonInfo() {
   const [person, setPerson] = useState({
-   name: "",
+    name: "",
     age: "",
-    weight:"",
-    bmi:"",
+    weight: "",
+    bmi: "",
     contact_number: "",
-    // admit_Date: "",
-    // previous_admit: "",
   });
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar(); // Initialize the notification hook
-
 
   useEffect(() => {
     axios
-      .get(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets/${id}`)
+      .get(
+        `https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets/${id}`
+      )
       .then((res) => {
         setPerson(res.data);
       })
       .catch((err) => {
         console.error("Error from UpdatePerson GET request", err);
-        enqueueSnackbar("Failed to fetch person details.", { variant: "error" });
+        alert("Failed to fetch person details.");
       });
-  }, [id, enqueueSnackbar]); // Remove 'URL' from the dependency array because it is a stable constant.
-  // React expects 'URL' to be in the dependency array, but since it doesn't change, it can be safely excluded.
+  }, [id]);
 
   const onChange = (e) => {
     setPerson({ ...person, [e.target.name]: e.target.value });
@@ -51,14 +44,17 @@ function UpdatePersonInfo() {
     e.preventDefault();
 
     axios
-      .put(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets/${id}`, person)
+      .put(
+        `https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets/${id}`,
+        person
+      )
       .then(() => {
-        enqueueSnackbar("Person updated successfully!", { variant: "success" });
+        alert("Person updated successfully!");
         navigate(`/detail/${id}`);
       })
       .catch((err) => {
         console.error("Error in UpdatePerson PUT request", err);
-        enqueueSnackbar("Failed to update person details. Please try again.", { variant: "error" });
+        alert("Failed to update person details. Please try again.");
       });
   };
 
@@ -102,7 +98,7 @@ function UpdatePersonInfo() {
             <TextField
               fullWidth
               label="Age"
-              type="Number"
+              type="number"
               name="age"
               value={person.age}
               onChange={onChange}
@@ -113,18 +109,19 @@ function UpdatePersonInfo() {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="weight"
-              type="Number"
+              label="Weight"
+              type="number"
               name="weight"
               value={person.weight}
               onChange={onChange}
               variant="outlined"
             />
           </Grid>
+
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="bmi"
+              label="BMI"
               name="bmi"
               value={person.bmi}
               onChange={onChange}
@@ -132,26 +129,11 @@ function UpdatePersonInfo() {
             />
           </Grid>
 
-          {/* <Grid item xs={12}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Admit Date"
-              type="date"
-              name="admit_Date"
-              value={patient.admit_Date}
-              onChange={onChange}
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </Grid> */}
-
-<Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="contact_number"
-              type="Number"
+              label="Contact Number"
+              type="number"
               name="contact_number"
               value={person.contact_number}
               onChange={onChange}
