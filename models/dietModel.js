@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const { boolean } = require('webidl-conversions');
 
-const DietSchema = new mongoose.Schema({
+const dietSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     age: {
         type: Number,
@@ -13,23 +15,24 @@ const DietSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    BMI: {
+    bmi: {
         type: Number,
         required: true
     },
     contact_number: {
-        type: String,
-        required: true,
-        unique: true
+        type: Number,
+        required: true
     },
-    availibility: {
-        type: String,
-        required: true,
-        unique: true
-    }
-    
-    
+    //    admit_Date:{
+        //     type: Date,
+        //     required:true
+        //    },
+    //    availability:{
+    //     type:Boolean,
+    //     required:true
+    //    }
+
 });
 
-const DietModel = mongoose.model('DietData', DietSchema);
-module.exports = DietModel;
+const DietModel = mongoose.model('Diet', dietSchema);
+module.exports = DietModel; // Corrected here

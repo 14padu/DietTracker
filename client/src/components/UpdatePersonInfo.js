@@ -1,50 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import {
+  Box,
+  Button,
   Container,
   TextField,
   Typography,
-  Button,
-  Box,
-  Paper,
-  Divider,
-} from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+ 
+  Grid,
+} from "@mui/material";
+import axios from "axios";
+import { useSnackbar } from "notistack"; // Import the useSnackbar hook
 
-const UpdatePersonInfo = () => {
+//const URL = process.env.REACT_APP_API_URL; // Access environment variable
+
+function UpdatePersonInfo() {
   const [person, setPerson] = useState({
-    name: '',
-    age: '',
-    weight: '',
-    BMI: '',
-    contact_number: '',
-    availibility: ''
-    
+   name: "",
+    age: "",
+    weight:"",
+    bmi:"",
+    contact_number: "",
+    // admit_Date: "",
+    // previous_admit: "",
   });
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar(); // Initialize the notification hook
+
 
   useEffect(() => {
     axios
-      .get(`https://diet-track-5chn.onrender.com/api/diets/${id}`)
+      .get(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets/${id}`)
       .then((res) => {
-        setPerson({
-          name: res.data.name,
-          age: res.data.age,
-          weight: res.data.weight,
-          BMI: res.data.BMI,
-          contact_number: res.data.contact_number,
-          avalibility: res.data.availibility
-        });
+        setPerson(res.data);
       })
       .catch((err) => {
-        console.error('Error fetching person details:', err);
-        toast.error('Failed to load person details.', { autoClose: 3000 });
+        console.error("Error from UpdatePerson GET request", err);
+        enqueueSnackbar("Failed to fetch person details.", { variant: "error" });
       });
-  }, [id]);
+  }, [id, enqueueSnackbar]); // Remove 'URL' from the dependency array because it is a stable constant.
+  // React expects 'URL' to be in the dependency array, but since it doesn't change, it can be safely excluded.
 
   const onChange = (e) => {
     setPerson({ ...person, [e.target.name]: e.target.value });
@@ -54,91 +51,128 @@ const UpdatePersonInfo = () => {
     e.preventDefault();
 
     axios
-      .put(`https://diet-track-5chn.onrender.com/api/diets/${id}`, person)
+      .put(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets/${id}`, person)
       .then(() => {
-        toast.success('Person updated successfully!', { autoClose: 3000 });
-        navigate(`/show-person/${id}`);
+        enqueueSnackbar("Person updated successfully!", { variant: "success" });
+        navigate(`/detail/${id}`);
       })
       .catch((err) => {
-        console.error('Error updating person:', err);
-        toast.error('Failed to update person. Please try again.', { autoClose: 3000 });
+        console.error("Error in UpdatePerson PUT request", err);
+        enqueueSnackbar("Failed to update person details. Please try again.", { variant: "error" });
       });
   };
 
   return (
     <Container maxWidth="sm">
-      <ToastContainer />
-      <Paper elevation={3} sx={{ p: 4, mt: 4, mb: 4 }}>
-        <Typography variant="h4" gutterBottom align="center">
+      <Box mt={4} mb={2}>
+        <Typography variant="h4" align="center" gutterBottom>
           Edit Person
         </Typography>
-        <Divider sx={{ my: 2 }} />
-        <form noValidate onSubmit={onSubmit}>
-          <Box display="flex" flexDirection="column" gap={2}>
+        <Typography variant="subtitle1" align="center" gutterBottom>
+          Update Person's Information
+        </Typography>
+      </Box>
+
+      <Box mb={2}>
+        <Button
+          component={Link}
+          to="/list"
+          variant="outlined"
+          color="secondary"
+          fullWidth
+        >
+          Show Persons List
+        </Button>
+      </Box>
+
+      <form noValidate onSubmit={onSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
             <TextField
+              fullWidth
               label="Name"
               name="name"
               value={person.name}
               onChange={onChange}
-              fullWidth
-              required
+              variant="outlined"
             />
+          </Grid>
+
+          <Grid item xs={12}>
             <TextField
+              fullWidth
               label="Age"
+              type="Number"
               name="age"
               value={person.age}
               onChange={onChange}
-              fullWidth
-              required
-              type="number"
+              variant="outlined"
             />
+          </Grid>
+
+          <Grid item xs={12}>
             <TextField
-              label="Weight (kg)"
+              fullWidth
+              label="weight"
+              type="Number"
               name="weight"
               value={person.weight}
               onChange={onChange}
-              fullWidth
-              required
-              type="number"
+              variant="outlined"
             />
+          </Grid>
+          <Grid item xs={12}>
             <TextField
-              label="BMI"
-              name="BMI"
-              value={person.BMI}
+              fullWidth
+              label="bmi"
+              name="bmi"
+              value={person.bmi}
               onChange={onChange}
-              fullWidth
-              required
-              type="number"
+              variant="outlined"
             />
+          </Grid>
+
+          {/* <Grid item xs={12}>
             <TextField
-              label="Contact Number"
+              fullWidth
+              label="Admit Date"
+              type="date"
+              name="admit_Date"
+              value={patient.admit_Date}
+              onChange={onChange}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid> */}
+
+<Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="contact_number"
+              type="Number"
               name="contact_number"
               value={person.contact_number}
               onChange={onChange}
-              fullWidth
-              required
-              type="tel"
+              variant="outlined"
             />
-           
-            <TextField
-              label="availibility"
-              name="availibility"
-              value={person.availibility}
-              onChange={onChange}
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
               fullWidth
-              required
-              type="tel"
-            />
-          </Box>
-          <Box display="flex" justifyContent="center" mt={3}>
-            <Button type="submit" variant="contained" color="primary" size="large">
+            >
               Update Person
             </Button>
-          </Box>
-        </form>
-      </Paper>
+          </Grid>
+        </Grid>
+      </form>
     </Container>
   );
-};
+}
 
 export default UpdatePersonInfo;

@@ -1,3 +1,4 @@
+// src/components/HomePage.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -10,11 +11,12 @@ import {
   CardContent,
   Fade,
   CircularProgress,
+  //Divider
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import DownloadIcon from '@mui/icons-material/Download';
-import MenuBookIcon from '@mui/icons-material/MenuBook'; // Added import
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import QrCodeIcon from '@mui/icons-material/QrCode';
@@ -26,29 +28,28 @@ import axios from 'axios';
 const HomePage = () => {
   const [stats, setStats] = useState({
     totalPersons: 0,
-    unique: 0,
-    recentPerson: null,
+    uniqueAuthors: 0,
+    recentPerson: null
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get('https://diet-track-5chn.onrender.com/api/diets')
-      .then((res) => {
-        const persons = res.data; // Define `persons`
-        const unique = new Set(persons.map((person) => person.contact_Number)).size;
-        const recentPerson = persons.sort(
-          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-        )[0]; // Assuming `updatedAt` is the correct date field
+    axios.get('https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets')
+      .then(res => {
+        const person = res.data;
+        const uniquePerson = new Set(person.map(person => person.author)).size;
+        const recentperson = person.sort((a, b) =>
+          new Date(b.published_date) - new Date(a.published_date)
+        )[0];
 
         setStats({
-          totalPersons: persons.length,
-          unique,
-          recentPerson,
+          totalPersons: person.length,
+          uniquePerson,
+          recentperson
         });
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error('Error fetching stats:', err);
         setLoading(false);
       });
@@ -68,10 +69,10 @@ const HomePage = () => {
         {/* Welcome Section */}
         <Box textAlign="center" mb={6}>
           <Typography variant="h3" component="h1" color="primary" gutterBottom>
-            Welcome to Diet Tracker Project
+            Welcome to Diet Tracker
           </Typography>
           <Typography variant="h6" color="text.secondary" gutterBottom>
-            Your Diet , Your Priority
+            Organize and manage your persons efficiently
           </Typography>
         </Box>
 
@@ -96,7 +97,7 @@ const HomePage = () => {
               <CardContent sx={{ textAlign: 'center', width: '100%' }}>
                 <PersonIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
                 <Typography variant="h4" gutterBottom>
-                  {stats.unique}
+                  {stats.uniquePersons}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
                   Unique Persons
@@ -113,7 +114,7 @@ const HomePage = () => {
                   Latest Person
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  {stats.recentPerson?.name || 'No person yet'}
+                  {stats.recentPerson?.title || 'No persons yet'}
                 </Typography>
               </CardContent>
             </Card>
@@ -145,7 +146,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component={Link}
-              to="/person-add"
+              to="/person-create"
               variant="contained"
               size="large"
               startIcon={<AddIcon />}
@@ -201,7 +202,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component="a"
-              href="https://diet-track-5chn.onrender.com/api/diets"
+              href="https://github.com/14padu/DietTracker.git"
               target="_blank"
               rel="noopener noreferrer"
               variant="contained"
@@ -213,6 +214,29 @@ const HomePage = () => {
               GitHub
             </Button>
           </Grid>
+
+          {/* Resume Button */}
+        <Grid item xs={12} sm={6} md={3}>
+              <Button
+                component="a"
+                href="https://docs.google.com/document/d/1WEwJ5rvyI8gxGWORNP_9uGzvybJHzdb0NUSvQd-b-O0/edit?tab=t.0"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                startIcon={<MenuBookIcon />}
+                size="large"
+                fullWidth
+                sx={{
+                  padding: '16px',
+                  borderRadius: '8px',
+                  boxShadow: 2,
+                  '&:hover': { boxShadow: 6 },
+                }}
+              >
+                Resume
+              </Button>
+            </Grid>
+
 
           <Grid item xs={12} sm={6} md={4}>
             <Button
@@ -227,6 +251,7 @@ const HomePage = () => {
               Search Persons
             </Button>
           </Grid>
+
         </Grid>
       </Container>
     </Fade>

@@ -12,16 +12,16 @@ import {
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import MenuBookIcon from '@mui/icons-material/MenuBook'; 
 
 const notesPages = [
-  { title: 'Home', path: '/notes/home' },
-  { title: 'Schedule', path: '/notes/schedule' },
-];
-
-const Navbar = () => {
-  const [notesAnchorEl, setNotesAnchorEl] = useState(null);
-
+    { title: 'Home', path: '/notes/home' },
+    { title: 'Schedule', path: '/notes/schedule' },
+  ];
+  
+  const Navbar = () => {
+    const [notesAnchorEl, setNotesAnchorEl] = useState(null);
+  
   const handleNotesClick = (event) => {
     setNotesAnchorEl(event.currentTarget);
   };
@@ -31,14 +31,10 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" color="primary.main" elevation={0}>
+    <AppBar position="static" color="transparent" elevation={0} sx={{ width: '100%' }}>
       <Toolbar>
-        <Typography
-          variant="h5"
-          component="div"
-          sx={{ flexGrow: 1, color: 'primary.main', textAlign: 'center' }}
-        >
-          Diet Tracker Project
+        <Typography  variant="h5" component="div" sx={{ flexGrow: 1, color: 'primary.main' }}>
+        Diet Tracker Project
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Button
@@ -52,22 +48,19 @@ const Navbar = () => {
           <Button
             color="primary"
             onClick={handleNotesClick}
-            startIcon={<MenuBookIcon />}
-            aria-controls={Boolean(notesAnchorEl) ? 'notes-menu' : undefined}
-            aria-haspopup="true"
+            startIcon={<MenuBookIcon />} // Added icon here
           >
             Notes
           </Button>
           <Menu
-            id="notes-menu"
             anchorEl={notesAnchorEl}
             open={Boolean(notesAnchorEl)}
             onClose={handleNotesClose}
           >
             {notesPages.map((page) => (
-              <MenuItem
-                key={page.path}
-                component={RouterLink}
+              <MenuItem 
+                key={page.path} 
+                component={RouterLink} 
                 to={page.path}
                 onClick={handleNotesClose}
               >
@@ -78,7 +71,7 @@ const Navbar = () => {
           <IconButton
             color="primary"
             component="a"
-            href="https://diet-track-5chn.onrender.com/api/diets"
+            href="https://github.com/14padu/DietTracker.git"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

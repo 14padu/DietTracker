@@ -1,205 +1,208 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+//import {  Grid, Typography, TextField, Button, Box, Paper ,InputLabel} from '@mui/material';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  Container,
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Paper,
-} from '@mui/material';
+import { Container} from '@mui/material';
+//import axios from 'axios';
 
-const CreatePerson = () => {
-  const navigate = useNavigate();
-  const [person, setPerson] = useState({
-    name: '',
-    age: '',
-    contact_number: '',
-    BMI: '',
-    weight: '',
-    availibilty: ''
-  });
 
-  const onChange = (e) => {
-    setPerson({ ...person, [e.target.name]: e.target.value });
-  };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+import axios from 'axios';
 
-    axios
-      .post('https://diet-track-5chn.onrender.com/api/diets', person)
-      .then(() => {
-        setPerson({
-          name: '',
-          age: '',
-          contact_number: '',
-          BMI: '',
-          weight: '',
-          availibility: ''
+const CreatePerson = (props) => {
+    const navigate = useNavigate();
+    const [person, setPerson] = useState({
+        name: '',
+        age:'',
+        contact_number:'', 
+        //admit_Date: '',
+        weight:'',
+        bmi:'',
+        //availability:'',
+      
+      
+    });
+    const [ setShowToast] = useState(false);
+
+    const onChange = (e) => {
+        setPerson({ ...person, [e.target.name]: e.target.value });
+      };
+    
+      const onSubmit = (e) => {
+        e.preventDefault();
+        
           
-
-        });
-
-        toast.success('Person added successfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          theme: 'dark',
-        });
-
-        navigate('/person-list');
-      })
-      .catch((err) => {
-        console.error('Error creating person:', err);
-
-        toast.error('Failed to add person. Please try again.', {
-          position: 'top-right',
-          autoClose: 5000,
-          theme: 'dark',
-        });
+        axios
+        .post('https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets',person)
+        .then((res) => {
+          setPerson({
+            name: '',
+            age:'',
+            contact_number:'', 
+        
+             // admit_Date: '',
+            weight:'',
+            bmi:'',
+            // availability:'',
+        
+    
+        
       });
-  };
 
-  const handleCancel = () => {
-    navigate('/person-list');
-  };
+      
+        // Show the success alert
+        toast.success('Person added successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+          });
 
-  return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <ToastContainer />
-      <Paper
-        elevation={3}
-        sx={{
-          p: 4,
-          borderRadius: '12px',
-          backgroundColor: 'background.paper',
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
-        }}
-      >
-        <Box sx={{ textAlign: 'center', mb: 3 }}>
-          <Typography variant="h4" color="primary" gutterBottom>
-            Add a New Person
-          </Typography>
-          <Typography variant="body1" color="textSecondary">
-            Fill out the details to add a new person to the database.
-          </Typography>
-        </Box>
+          setTimeout(() => {
+            setShowToast(false); // Hide the toast
+            navigate('/'); // Navigate to homepage
+          }, 5000); // Adjust the timeout as needed
+  
+        })
 
-        <Box
-          component="form"
-          onSubmit={onSubmit}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          {/* Name */}
-          <TextField
-            label="Name"
-            name="name"
-            type='String'
-            variant="outlined"
-            fullWidth
-            required
-            value={person.name}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
+        .catch((err) => {
+          console.log('Error in CreatePerson!');
+          console.log('The error is -> ')
+          console.log(err)
+           
+            // Show the success alert
+            toast.error('Something went wrong, try again!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Slide,
+            });
+          });
+      };
+
+      return (
+        <Container maxWidth="lg" sx={{ textAlign: 'center', py: 5 }}>
+        <div className='CreatePerson'>
+          {/* <Navbar /> */}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Slide}
           />
+    
+          <div className='container'>
+            <div className='row'>
+              <div className='col-md-8 m-auto'>
+                <br />
+                <Link to='/' className='btn btn-outline-warning float-left'>
+                  Show Person List
+                </Link>
+              </div>
+              <div className='col-md-8 m-auto'>
+                <h1 className='display-4 text-center'>Add Person</h1>
+                <p className='lead text-center'>Create new person</p>
+    
+                <form noValidate onSubmit={onSubmit}>
+                  {/* <Name /> */}
+                  <div className='form-group'>
+                    <input
+                      type='String'
+                      placeholder='Name of the Person'
+                      name='name'
+                      className='form-control'
+                      value={person.name}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+                  {/* <Age /> */}
+                  <div className='form-group'>
+                    <input
+                      type='Number'
+                      placeholder='age of the person'
+                      name='age'
+                      className='form-control'
+                      value={person.age}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+                  {/* <Weight /> */}
+                  <div className='form-group'>
+                    <input
+                      type='Number'
+                      placeholder='weight'
+                      name='weight'
+                      className='form-control'
+                      value={person.weight}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+                  {/* <BMI /> */}
+                  <div className='form-group'>
+                    <input
+                      type='Number'
+                      placeholder='bmi'
+                      name='bmi'
+                      className='form-control'
+                      value={person.bmi}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+                  {/* <Contact Number /> */}
+                  <div className='form-group'>
+                    <input
+                      type='Number'
+                      placeholder='contact_number'
+                      name='contact_number'
+                      className='form-control'
+                      value={person.contact_number}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <br />
+    
+                 
+    
+                  <input
+                    type='submit'
+                    className='btn btn-outline-warning btn-block mt-4'
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+    
+    
+        </div>
+        </Container>
+      );
+    };
+    
+    export default CreatePerson;
+    
 
-          {/* Age */}
-          <TextField
-            label="Age"
-            name="age"
-            type="number"
-            variant="outlined"
-            fullWidth
-            required
-            value={person.age}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
-          />
-
-          {/* Contact Number */}
-          <TextField
-            label="Contact Number"
-            name="contact_number"
-            type="string"
-            variant="outlined"
-            fullWidth
-            required
-            value={person.contact_number}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
-          />
-
-          {/* BMI */}
-          <TextField
-            label="BMI"
-            name="BMI"
-            type="number"
-            variant="outlined"
-            fullWidth
-            required
-            value={person.BMI}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
-          />
-
-          {/* Weight */}
-          <TextField
-            label="Weight (kg)"
-            name="weight"
-            type="number"
-            variant="outlined"
-            fullWidth
-            required
-            value={person.weight}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
-          />
-
-         
-           {/* availibility */}
-           <TextField
-            label="availibility "
-            name="availibility"
-            type="string"
-            variant="outlined"
-            fullWidth
-            required
-            value={person.availibility}
-            onChange={onChange}
-            inputMode={{
-              style: { color: 'black' }}}
-          />
-          {/* Button */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Add Person
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              onClick={handleCancel}
-              sx={{ ml: 2 }}
-            >
-              Cancel
-            </Button>
-          </Box>
-        </Box>
-      </Paper>
-    </Container>
-  );
-};
-
-export default CreatePerson;
+    
+  

@@ -7,6 +7,8 @@ import {
   Typography,
   Grid,
   Button,
+  Card,
+  CardMedia,
   Divider,
   Box,
 } from '@mui/material';
@@ -15,8 +17,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -27,20 +27,19 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const ShowPersonDetails = () => {
-  const [person, setPerson] = useState(null);
+  const [person, setPerson] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`https://diet-track-5chn.onrender.com/api/diets/${id}`)
+      .get(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/persons/${id}`)
       .then((res) => {
         setPerson(res.data);
       })
       .catch((err) => {
-        console.error('Error fetching person details:', err);
-        toast.error('Failed to load person details.', { autoClose: 3000 });
+        console.log('Error from ShowPersonDetails');
       });
   }, [id]);
 
@@ -50,14 +49,12 @@ const ShowPersonDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`https://diet-track-5chn.onrender.com/api/diets/${id}`)
-      .then(() => {
-        toast.success('Person deleted successfully!', { autoClose: 3000 });
+      .delete(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/${id}`)
+      .then((res) => {
         navigate('/person-list');
       })
       .catch((err) => {
-        console.error('Error deleting person:', err);
-        toast.error('Failed to delete person. Please try again.', { autoClose: 3000 });
+        console.log('Error from ShowPersonDetails_deleteClick');
       });
     setOpenDialog(false);
   };
@@ -66,34 +63,43 @@ const ShowPersonDetails = () => {
     setOpenDialog(false);
   };
 
-  if (!person) {
-    return (
-      <Container maxWidth="md">
-        <Typography variant="h6" color="textSecondary" align="center" sx={{ mt: 4 }}>
-          Loading person details...
-        </Typography>
-      </Container>
-    );
-  }
-
   return (
-    <Container maxWidth="sm">
-      <ToastContainer />
+    <Container maxWidth="md">
       <StyledPaper>
-        <Box display="flex" flexDirection="column" gap={2}>
-          <Typography variant="h4" gutterBottom>
-            {person.name}
-          </Typography>
-          <Divider sx={{ my: 2 }} />
-          <Typography variant="body1">Age: {person.age}</Typography>
-          <Typography variant="body1">Contact Number: {person.contact_number}</Typography>
-          <Typography variant="body1">Name: {person.Name}</Typography>
-          <Typography variant="body1">availibility: {person.availibility} </Typography>
-          <Typography variant="body1">Weight: {person.weight} kg</Typography>
-          <Typography variant="body1">BMI: {person.BMI}</Typography>
-        </Box>
-        <Divider sx={{ my: 3 }} />
-        <Box display="flex" justifyContent="space-between">
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4}>
+            <Card>
+              <CardMedia
+                component="img"
+                height="300"
+                image="https://cdn.aarp.net/content/dam/aarp/health/healthy-living/2017/05/1140-calorie-counting-app.imgcache.rev62ecd194605c05dfff72b7963164dd1d.jpg"
+                alt={person.title}
+              />
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Typography variant="h4" component="h1" gutterBottom>
+              {person.name}
+            </Typography>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              by {person.age}
+            </Typography>
+            <Divider sx={{ my: 2 }} />
+            
+            {/* Display book details one after another */}
+            <Box display="flex" flexDirection="column">
+              <Typography variant="body1" paragraph>
+                {person.contact_number}
+              </Typography>
+              <Typography variant="body1">bmi: {person.bmi}</Typography>
+              <Typography variant="body1">weight: {person.weight}</Typography>
+              <Typography variant="body1">admit_Date: {person.admit_Date}</Typography>
+            </Box>
+
+          </Grid>
+        </Grid>
+        
+        <Box mt={4} display="flex" justifyContent="space-between">
           <Button
             startIcon={<ArrowBackIcon />}
             component={RouterLink}
@@ -106,12 +112,12 @@ const ShowPersonDetails = () => {
             <Button
               startIcon={<EditIcon />}
               component={RouterLink}
-              to={`/edit-person/${person._id}`}
+              to={`/edit-person/${id}`}
               variant="contained"
               color="primary"
               sx={{ mr: 1 }}
             >
-              Edit
+              Edit Person
             </Button>
             <Button
               startIcon={<DeleteIcon />}
@@ -119,13 +125,13 @@ const ShowPersonDetails = () => {
               variant="contained"
               color="error"
             >
-              Delete
+              Delete Person
             </Button>
           </Box>
         </Box>
       </StyledPaper>
 
-      {/* Delete Confirmation Dialog */}
+      {/* Keep the dialog unchanged */}
       <Dialog
         open={openDialog}
         onClose={handleDeleteCancel}

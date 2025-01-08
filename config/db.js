@@ -1,17 +1,22 @@
-const mongoose = require ('mongoose');
+const mongoose = require("mongoose")
 
-const connectDB = async() => {
+const connectDB = async () => {
+  try {
+    mongoose.set("strictQuery", true)
+    await mongoose.connect(process.env.ATLAS_URL, {
+      useNewUrlParser: true,
+    })
+    .then(() => {
+      console.log("Successfully connected to MongoDB Atlas");
+    })
+  }
+  catch (err) {
+    console.error(err.message)
+    console.log("FIX THE DB CONNECTIVITY CODE OR MONGODB URL/USERNAME/PASSWORD!!!")
+    // process.exit(1)
+  }
+}
 
-    try{
+module.exports = connectDB
 
-        await mongoose.connect(
-            'mongodb+srv://diet_tracker_admin:diet_tracker_admin@diet-tracker.jsni9.mongodb.net/?retryWrites=true&w=majority&appName=diet-tracker');
-
-        console.log("connected to mongoDB");
-    } catch(err){
-        console.error('Failed to connect to MongoDB', err);
-        process.exit(1);
-
-    }
-};
-module.exports =connectDB;
+// green-barracuda-tux

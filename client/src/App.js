@@ -1,46 +1,49 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box } from '@mui/material';           
-import { nutrientBalance } from './theme/nutrientBalance'; // Import theme creation // Wrap app with theme provider
+import {  Box } from '@mui/material';
+import dietTrackerTheme from './theme/dietTracker';
 
-import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import CreatePerson from './components/CreatePerson';
-import ShowPersonList from './components/ShowPersonList';
-import ShowPersonDetails from './components/ShowPersonDetails';
-import UpdatePersonInfo from './components/UpdatePersonInfo';
-import QRCodePage from './components/QRCodePage';
-import HomePage from './components/HomePage';
-import ExportPerson from './components/ExportPerson';  // Corrected import name
-import SearchPerson from './components/SearchPerson';  // Ensure SearchPerson is imported
+import Footer from './components/Footer';
+ import CreatePerson from './components/CreatePerson';
+ import ShowPersonList from './components/ShowPersonList';
+ 
+ import ShowPersonDetails from './components/ShowPersonDetails';
+ import ExportPage from './components/ExportPage';
+ import UpdatePersonInfo from './components/UpdatePersonInfo';
+ import HomePage from './components/HomePage';
+ import SearchPerson from './components/SearchPerson';
+ import QRCodePage from './components/QRCodePage';
+
+// import NotesPage from './components/NotesPage'; // Import NotesPage component
 
 const App = () => {
   return (
-    <ThemeProvider theme={nutrientBalance}>
-      <CssBaseline />
+     <ThemeProvider theme={dietTrackerTheme}>
+       {/* <CssBaseline /> */}
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
           <Navbar />
           <Box component="main" flexGrow={1} py={3}>
-            <div className="box-container">
-              <Routes>
-                <Route exact path='/' element={<HomePage />} />
-                <Route path='/person-add' element={<CreatePerson />} />
-                <Route path='/person-list' element={<ShowPersonList />} />
-                <Route path='/edit-person/:id' element={<UpdatePersonInfo />} />
-               
-                <Route path='/show-person/:id' element={<ShowPersonDetails />} />
-                <Route path="/qr-codes" element={<QRCodePage />} />
-                <Route path='/person-export' element={<ExportPerson />} />  {/* Fixed name here */}
-                <Route path='/search-person' element={<SearchPerson />} />  {/* Added SearchPerson route */}
-              </Routes>
-            </div>
+            <Routes>
+              <Route exact path='/' element={<HomePage />} />
+              
+              <Route path='/person-create' element={<CreatePerson />} />
+              <Route path='/person-list' element={<ShowPersonList />} />
+              <Route path='/edit-person/:id' element={<UpdatePersonInfo />} /> 
+              <Route path='/show-person/:id' element={<ShowPersonDetails />} />
+              <Route path="/export" element={<ExportPage />} />
+              <Route path="/search" element={<SearchPerson />} />
+              <Route path="/qr-codes" element={<QRCodePage />} />
+              {/* <Route path='/notes/*' element={<NotesPage />} />   */}
+            </Routes>
           </Box>
           <Footer />
         </Box>
       </Router>
-    </ThemeProvider>
+       </ThemeProvider>
   );
 };
 
