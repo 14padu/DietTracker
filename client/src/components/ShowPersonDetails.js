@@ -87,8 +87,10 @@ const ShowPersonDetails = () => {
           <Divider sx={{ my: 2 }} />
           <Typography variant="body1">Age: {person.age}</Typography>
           <Typography variant="body1">Contact Number: {person.contact_number}</Typography>
-          <Typography variant="body1">BMI: {person.BMI}</Typography>
+          <Typography variant="body1">Name: {person.Name}</Typography>
+          <Typography variant="body1">availibility: {person.availibility} </Typography>
           <Typography variant="body1">Weight: {person.weight} kg</Typography>
+          <Typography variant="body1">BMI: {person.BMI}</Typography>
         </Box>
         <Divider sx={{ my: 3 }} />
         <Box display="flex" justifyContent="space-between">

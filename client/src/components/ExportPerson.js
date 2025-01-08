@@ -44,7 +44,7 @@ const ExportPage = () => {
     // doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 25);
   
     // Define table columns and rows
-    const tableColumn = ['Name', 'Age', 'BMI', 'Contact Number', 'Weight'];
+    const tableColumn = ['Name', 'Age', 'BMI', 'Contact Number', 'Weight','availibility'];
     const tableRows = persons.map((person) => [
       person.name,
       person.age,

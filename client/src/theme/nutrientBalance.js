@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { Themeprovider, createTheme } from '@mui/material/styles';
 
 // Define colors for the Nutrient Balance theme
 const nutrientBalanceColors = {

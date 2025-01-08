@@ -201,7 +201,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component="a"
-              href="https://github.com/14padu/DietTracker.git/api/diets"
+              href="https://diet-track-5chn.onrender.com/api/diets"
               target="_blank"
               rel="noopener noreferrer"
               variant="contained"
