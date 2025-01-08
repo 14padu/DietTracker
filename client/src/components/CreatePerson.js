@@ -42,40 +42,74 @@ const CreatePerson = () => {
       return;
     }
 
+    // Check if the name already exists in the database
     axios
-      .post('https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets', person)
-      .then((res) => {
-        setPerson({
-          name: '',
-          age: '',
-          contact_number: '',
-          weight: '',
-          bmi: '',
-        });
+      .get(`https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets?name=${person.name}`)
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          // Name already exists
+          toast.error('Person with this name already exists!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+          });
+        } else {
+          // Proceed to add the new person
+          axios
+            .post('https://5000-14padu-diettracker-0yawcloo8rm.ws-us117.gitpod.io/api/diets', person)
+            .then((res) => {
+              setPerson({
+                name: '',
+                age: '',
+                contact_number: '',
+                weight: '',
+                bmi: '',
+              });
 
-        toast.success('Person added successfully!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
+              toast.success('Person added successfully!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Slide,
+              });
 
-        setTimeout(() => {
-          navigate('/'); // Navigate to homepage
-        }, 5000);
+              setTimeout(() => {
+                navigate('/'); // Navigate to homepage
+              }, 5000);
+            })
+            .catch((err) => {
+              console.error('Error in CreatePerson:', err);
+              if (err.response && err.response.data) {
+                console.log('Error response from server:', err.response.data);
+              }
+              toast.error('Something went wrong, try again!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Slide,
+              });
+            });
+        }
       })
       .catch((err) => {
-        console.error('Error in CreatePerson:', err);
-        // Check if the error response contains more details
-        if (err.response && err.response.data) {
-          console.log('Error response from server:', err.response.data);
-        }
-        toast.error('Something went wrong, try again!', {
+        console.error('Error checking name existence:', err);
+        toast.error('Error checking name existence!', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
